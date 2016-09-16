@@ -16,12 +16,24 @@ package remise_niv_da2i;
 //Team> Commit
 //Team> Pull
 //Team> Push
+//modifer un fichier vers git :
+//jsute pas de add
+
+//git sous terminal :
+//ajouter un fichier vers git :
+//git add chemin_fichier
+//git commit -am 'nom_comit'
+//git pull
+//git push
+
+
+//modifer un fichier vers git :
+//juste pas de add
  
 public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
+/**
+ * @param args
+ */
     public static void main(String[] args) {
         System.out.println("hello world!");
     }
