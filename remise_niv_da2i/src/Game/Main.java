@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package remise_niv_da2i;
+package Game;
 
 /**
  * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice
@@ -23,7 +23,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("hello!");
+        Display d = new Display();
+        d.displayMap(41, 21);
     }
     
 }
