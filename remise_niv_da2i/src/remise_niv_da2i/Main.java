@@ -9,6 +9,14 @@ package remise_niv_da2i;
 /**
  * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice
  */
+
+//git sous netbeans :
+//ajouter un fichier vers git :
+//Team> Add
+//Team> Commit
+//Team> Pull
+//Team> Push
+ 
 public class Main {
 
     /**
