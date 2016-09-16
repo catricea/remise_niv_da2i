@@ -7,8 +7,9 @@
 package Game;
 
 /**
- * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice
- */
+ * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice 
+*/
+
 
 //git sous netbeans :
 //ajouter un fichier vers git :
@@ -16,15 +17,29 @@ package Game;
 //Team> Commit
 //Team> Pull
 //Team> Push
+//modifer un fichier vers git :
+//jsute pas de add
+
+//git sous terminal :
+//ajouter un fichier vers git :
+//git add chemin_fichier
+//git commit -am 'nom_comit'
+//git pull
+//git push
+
+
+//modifer un fichier vers git :
+//juste pas de add
  
 public class Main {
-
-    /**
-     * @param args the command line arguments
-     */
+/**
+ * @param args
+ */
     public static void main(String[] args) {
         Display d = new Display();
         d.displayMap(41, 21);
     }
     
 }
+
+// Mouhahahaha
