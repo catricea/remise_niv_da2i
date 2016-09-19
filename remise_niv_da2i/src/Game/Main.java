@@ -36,12 +36,12 @@ public class Main {
  * @param args
  */
     public static void main(String[] args) throws InterruptedException {
-        Display d = new Display(41, 21, 0, 11);
+        Display d = new Display(41, 21, -1, 11);
         while(true){
             
             d.displayMap();
             d.refresh();
-            Thread.sleep(100);
+            Thread.sleep(250);
             d.setVisible(true);
         }
     }
