@@ -25,26 +25,30 @@ public class Map {
     private Cellule[][] cellules;
 
     /**
-     * constructeur du plateau de jeu avec une largeur et une hateur
+     * constructeur du plateau de jeu avec une largeur et une hauteur
      * @param args width, height
      */
     public Map(int width, int height) {
         this.cellules = new Cellule[width][height];
-        
-        for(int i = 0; i < width; i++){
-            for(int j = 0; j < height; j++){
+        this.width = width;
+        this.height = height;
+    }
+    
+    public void initialization(){
+        for(int i = 0; i < this.getWidth(); i++){
+            for(int j = 0; j < this.getHeight(); j++){
 
-                if(i == 0 || i == width-1 || j == 0 || j == height-1){
-                    if((i == 0 && j == 1) || (i == width-1 && j == height-2))
-                        cellules[i][j] = new Cellule(i, j, false);
+                if(i == 0 || i == this.getWidth()-1 || j == 0 || j == this.getHeight()-1){
+                    if((i == 0 && j == 1) || (i == this.getWidth()-1 && j == this.getHeight()-2))
+                        this.getCellules()[i][j] = new Cellule(i, j, false);
                     else
-                       cellules[i][j] = new Cellule(i, j, true);
+                       this.getCellules()[i][j] = new Cellule(i, j, true);
                 }
                 
                 else if(i % 2 == 0 && j % 2 == 0)
-                        cellules[i][j] = new Cellule(i, j, new Random().nextBoolean());
+                        this.getCellules()[i][j] = new Cellule(i, j, new Random().nextBoolean());
                 else
-                cellules[i][j] = new Cellule(i, j, false);             
+                this.getCellules()[i][j] = new Cellule(i, j, false);             
             }
         }
     }
@@ -55,7 +59,7 @@ public class Map {
     public int getWidth(){
         return this.width;
     }
-        public int getHeight(){
+    public int getHeight(){
         return this.height;
     }
     

@@ -36,8 +36,8 @@ public class Main {
  * @param args
  */
     public static void main(String[] args) {
-        Display d = new Display();
-        d.displayMap(41, 21);
+        Display d = new Display(41, 21);
+        d.displayMap();
     }
     
 }

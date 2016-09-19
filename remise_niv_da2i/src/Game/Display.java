@@ -25,11 +25,18 @@ public class Display {
      * affiche le plateau du jeu en mode texte
      * @param args width, height
      */
-    public void displayMap(int w, int h) {
+    
+    public Display(int w, int h){
         this.map = new Map(w, h);
-        Cellule[][] c = map.getCellules();
-        for(int i = 0; i < h; i++){
-            for(int j = 0; j < w; j++){
+        System.out.println(this.getMap().getHeight());
+    }
+    
+    public void displayMap(){
+        this.getMap().initialization();
+        System.out.println(this.getMap().getHeight());
+        Cellule[][] c = this.getMap().getCellules();
+        for(int i = 0; i < this.getMap().getHeight(); i++){
+            for(int j = 0; j < this.getMap().getWidth(); j++){
              if(c[j][i].getWall())
                 System.out.print("*");
             else
@@ -37,6 +44,10 @@ public class Display {
             }
             System.out.print("\n");
         }
+    }
+    
+    public Map getMap(){
+        return this.map;
     }
     
 }
