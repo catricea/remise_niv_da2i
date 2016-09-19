@@ -34,12 +34,18 @@ public class Display extends JFrame implements KeyListener{
         this.pacman = new Pacman(new Cellule(XPacman, YPacman, false));
         this.getMap().initialization();
         this.addKeyListener(this);
+        //Fenetre
+        this.setVisible(true);
+        this.setTitle("PacMan");
+        this.setSize(1280,720);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     /**
      * affiche le plateau et Pacman en mode texte
      */
     public void displayMap(){
+        
         Cellule[][] c = this.getMap().getCellules();
         System.out.println(this.getPacman().getOrientation());
         //parcourt le tableau de cellules
