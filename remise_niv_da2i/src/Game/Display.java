@@ -67,10 +67,16 @@ public class Display extends JFrame implements KeyListener{
         Cellule c = this.getPacman().getPosition();
         switch(this.getPacman().getOrientation()){
             case RIGHT:
+                
+                if (this.getPacman().getPosition().getX()==this.getMap().getWidth()){
+                    this.getPacman().setPosition(1, this.getPacman().getPosition().getY());
+                }
+                
                 if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall()){
                     this.getPacman().setPosition(this.getPacman().getPosition().getX()+1, this.getPacman().getPosition().getY());
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
+                
                 break;
             case LEFT:
                 if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall()){
