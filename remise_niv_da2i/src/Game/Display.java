@@ -29,14 +29,13 @@ public class Display {
     public Display(int widthMap, int heightMap, int XPacman, int YPacman){
         this.map = new Map(widthMap, heightMap);
         this.pacman = new Pacman(new Cellule(XPacman, YPacman, false));
+        this.getMap().initialization();
     }
     
     /**
      * affiche le plateau et Pacman en mode texte
      */
     public void displayMap(){
-        this.getMap().initialization();
-
         Cellule[][] c = this.getMap().getCellules();
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
@@ -53,6 +52,15 @@ public class Display {
     
     
     public void refresh(){
+        if(this.getPacman().getOrientation() == Orientation.RIGHT)
+            this.getPacman().setPosition(this.getPacman().getPosition().getX()+1, this.getPacman().getPosition().getY());
+        else if(this.getPacman().getOrientation() == Orientation.LEFT)
+            this.getPacman().setPosition(this.getPacman().getPosition().getX()-1, this.getPacman().getPosition().getY());
+        else if(this.getPacman().getOrientation() == Orientation.DOWN)
+            this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()-1);
+        else if(this.getPacman().getOrientation() == Orientation.UP)
+            this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()+1);
+        displayMap();
     }
     
     public Map getMap(){

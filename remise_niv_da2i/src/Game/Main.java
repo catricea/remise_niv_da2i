@@ -35,9 +35,13 @@ public class Main {
 /**
  * @param args
  */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Display d = new Display(41, 21, 0, 1);
-        d.displayMap();
+        while(true){
+            d.displayMap();
+            d.refresh();
+            Thread.sleep(1000);
+        }
     }
     
 }
