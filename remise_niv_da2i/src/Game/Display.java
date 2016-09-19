@@ -6,9 +6,13 @@
 
 package Game;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 /**
  * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice
  */
@@ -30,15 +34,48 @@ public class Display extends JFrame implements KeyListener{
      * @param widthMap, heightMap, XPacman, YPacman
      */
     public Display(int widthMap, int heightMap, int XPacman, int YPacman){
+        
         this.map = new Map(widthMap, heightMap);
         this.pacman = new Pacman(new Cellule(XPacman, YPacman, false));
         this.getMap().initialization();
         this.addKeyListener(this);
+        
         //Fenetre
-        this.setVisible(true);
         this.setTitle("PacMan");
         this.setSize(1280,720);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(new GridLayout(widthMap, heightMap));
+        //this.pack();
+        this.setVisible(true);
+               
+    }
+    
+    /**
+     * 
+     * @param g 
+     */
+    public void paint(Graphics g){
+        
+        //réccupère un tableau de cellule
+        Cellule[][] c = this.getMap().getCellules();
+        
+        //parcourt le tableau de cellules
+        for(int i = 0; i < this.getMap().getHeight(); i++){
+            for(int j = 0; j < this.getMap().getWidth(); j++){
+                
+                //affiche les murs
+                if(c[j][i].getWall()){
+                    g.setColor(Color.blue);
+                
+                }
+                                
+                 //affiche le pacman
+                else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i){
+                    g.setColor(Color.yellow);
+                    
+                }
+            }
+        }
     }
     
     /**
@@ -66,9 +103,9 @@ public class Display extends JFrame implements KeyListener{
             }
             System.out.print("\n");
         }
+        
     }
-    
-    
+
     public void refresh(){
         Cellule c = this.getPacman().getPosition();
         switch(this.getPacman().getOrientation()){
