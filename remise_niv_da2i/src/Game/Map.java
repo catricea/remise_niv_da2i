@@ -40,16 +40,18 @@ public class Map {
     public void initialization(){
         for(int i = 0; i < this.getWidth(); i++){
             for(int j = 0; j < this.getHeight(); j++){
-
+                //chemin possible
                 if(i == 0 || i == this.getWidth()-1 || j == 0 || j == this.getHeight()-1){
-                    if((i == 0 && j == 1) || (i == this.getWidth()-1 && j == this.getHeight()-2))
+                    //entrée et sortie du tableau
+                    if((i == 0 && j == (this.getHeight() + 1)/2) || (i == this.getWidth()-1 && j == (this.getHeight() + 1)/2))
                         this.getCellules()[i][j] = new Cellule(i, j, false);
                     else
                        this.getCellules()[i][j] = new Cellule(i, j, true);
                 }
-                
+                //génère les murs
                 else if(i % 2 == 0 && j % 2 == 0)
                         this.getCellules()[i][j] = new Cellule(i, j, new Random().nextBoolean());
+                //génère le chemin
                 else
                 this.getCellules()[i][j] = new Cellule(i, j, false);             
             }

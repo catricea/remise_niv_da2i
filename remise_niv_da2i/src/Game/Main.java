@@ -36,7 +36,7 @@ public class Main {
  * @param args
  */
     public static void main(String[] args) throws InterruptedException {
-        Display d = new Display(41, 21, 0, 1);
+        Display d = new Display(41, 21, 0, 11);
         while(true){
             
             d.displayMap();
