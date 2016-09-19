@@ -41,6 +41,7 @@ public class Display extends JFrame implements KeyListener{
      */
     public void displayMap(){
         Cellule[][] c = this.getMap().getCellules();
+        System.out.println(this.getPacman().getOrientation());
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
             if(c[j][i].getWall())
@@ -56,15 +57,14 @@ public class Display extends JFrame implements KeyListener{
     
     
     public void refresh(){
-        System.out.println(this.getPacman().getOrientation());
         if(this.getPacman().getOrientation() == Orientation.RIGHT)
             this.getPacman().setPosition(this.getPacman().getPosition().getX()+1, this.getPacman().getPosition().getY());
         else if(this.getPacman().getOrientation() == Orientation.LEFT)
             this.getPacman().setPosition(this.getPacman().getPosition().getX()-1, this.getPacman().getPosition().getY());
         else if(this.getPacman().getOrientation() == Orientation.DOWN)
-            this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()-1);
-        else if(this.getPacman().getOrientation() == Orientation.UP)
             this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()+1);
+        else if(this.getPacman().getOrientation() == Orientation.UP)
+            this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()-1);
         displayMap();
     }
     
