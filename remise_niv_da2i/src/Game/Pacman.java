@@ -49,5 +49,8 @@ class Pacman {
         this.position.setX(x);
         this.position.setY(y);
     }
+    public void setOrientation(Orientation orientation){
+        this.orientation = orientation;
+    }
     
 }

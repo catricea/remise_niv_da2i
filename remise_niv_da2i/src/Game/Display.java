@@ -6,6 +6,9 @@
 
 package Game;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JFrame;
 /**
  * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice
  */
@@ -17,7 +20,7 @@ package Game;
 //Team> Pull
 //Team> Push
  
-public class Display {
+public class Display extends JFrame implements KeyListener{
     
     private Map map;
     private Pacman pacman;
@@ -30,6 +33,7 @@ public class Display {
         this.map = new Map(widthMap, heightMap);
         this.pacman = new Pacman(new Cellule(XPacman, YPacman, false));
         this.getMap().initialization();
+        this.addKeyListener(this);
     }
     
     /**
@@ -52,6 +56,7 @@ public class Display {
     
     
     public void refresh(){
+        System.out.println(this.getPacman().getOrientation());
         if(this.getPacman().getOrientation() == Orientation.RIGHT)
             this.getPacman().setPosition(this.getPacman().getPosition().getX()+1, this.getPacman().getPosition().getY());
         else if(this.getPacman().getOrientation() == Orientation.LEFT)
@@ -69,6 +74,36 @@ public class Display {
     
     public Pacman getPacman(){
         return this.pacman;
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        
+        String touche = KeyEvent.getKeyText( e.getKeyCode() );
+        switch (touche){
+                case "Gauche":
+                    this.getPacman().setOrientation(Orientation.LEFT);
+                break;
+                case "Droite":
+                    this.getPacman().setOrientation(Orientation.RIGHT);
+                break;
+                case "Haut":
+                   this.getPacman().setOrientation(Orientation.UP);
+                break;
+                case "Bas":
+                   this.getPacman().setOrientation(Orientation.DOWN);
+                break;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
     }
     
 }

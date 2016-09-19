@@ -38,9 +38,12 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         Display d = new Display(41, 21, 0, 1);
         while(true){
+            
             d.displayMap();
             d.refresh();
+            
             Thread.sleep(1000);
+            d.setVisible(true);
         }
     }
     
