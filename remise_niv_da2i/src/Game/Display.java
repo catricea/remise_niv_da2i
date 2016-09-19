@@ -67,17 +67,33 @@ public class Display extends JFrame implements KeyListener{
         Cellule c = this.getPacman().getPosition();
         switch(this.getPacman().getOrientation()){
             case RIGHT:
+                //si Pacman touche la bordure droite this.getMap().getWidth()-1
+                if(this.getPacman().getPosition().getX()==this.getMap().getWidth()-1){
+                    //Pacman est tp devant l'autre passage
+                    this.getPacman().setPosition(-1, this.getPacman().getPosition().getY());
+                }
                 if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall()){
+                    
                     this.getPacman().setPosition(this.getPacman().getPosition().getX()+1, this.getPacman().getPosition().getY());
+                    //pacmman est passé par cette case
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
+                
+                
                 break;
             case LEFT:
+                //si Pacman touche la bordure gauche this.getMap().getWidth()-1
+                if(this.getPacman().getPosition().getX()==0){
+                    //Pacman est tp devant l'autre passage
+                    this.getPacman().setPosition(this.getMap().getWidth(), this.getPacman().getPosition().getY());
+                }
                 if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall()){
                     this.getPacman().setPosition(this.getPacman().getPosition().getX()-1, this.getPacman().getPosition().getY());
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
                 break;
+                
+                
             case DOWN:
                 if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall()){
                     this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()+1);
