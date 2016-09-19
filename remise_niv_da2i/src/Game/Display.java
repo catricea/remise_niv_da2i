@@ -42,12 +42,16 @@ public class Display extends JFrame implements KeyListener{
     public void displayMap(){
         Cellule[][] c = this.getMap().getCellules();
         System.out.println(this.getPacman().getOrientation());
+        //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
+            //affiche les murs
             if(c[j][i].getWall())
                 System.out.print("*");
+            //affiche le pacman
             else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i)
                 System.out.print("C");
+            //affiche le chemin
             else
                 System.out.print(".");
             }
@@ -57,14 +61,26 @@ public class Display extends JFrame implements KeyListener{
     
     
     public void refresh(){
-        if(this.getPacman().getOrientation() == Orientation.RIGHT)
-            this.getPacman().setPosition(this.getPacman().getPosition().getX()+1, this.getPacman().getPosition().getY());
-        else if(this.getPacman().getOrientation() == Orientation.LEFT)
-            this.getPacman().setPosition(this.getPacman().getPosition().getX()-1, this.getPacman().getPosition().getY());
-        else if(this.getPacman().getOrientation() == Orientation.DOWN)
-            this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()+1);
-        else if(this.getPacman().getOrientation() == Orientation.UP)
-            this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()-1);
+        Cellule c = this.getPacman().getPosition();
+        switch(this.getPacman().getOrientation()){
+            case RIGHT:
+                if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall())
+                    this.getPacman().setPosition(this.getPacman().getPosition().getX()+1, this.getPacman().getPosition().getY());
+                break;
+            case LEFT:
+                if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall())
+                    this.getPacman().setPosition(this.getPacman().getPosition().getX()-1, this.getPacman().getPosition().getY());
+                break;
+            case DOWN:
+                if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall())
+                    this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()+1);
+                break;
+            case UP:
+                if(!this.getMap().getCellules()[c.getX()][c.getY()-1].getWall())
+                    this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()-1);
+                break;
+            
+        }
         displayMap();
     }
     
