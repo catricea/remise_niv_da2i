@@ -22,6 +22,7 @@ import java.util.Random;
 public class Map {
     
     private int width, height;
+    private Pacman pacman;
     private Cellule[][] cellules;
 
     /**

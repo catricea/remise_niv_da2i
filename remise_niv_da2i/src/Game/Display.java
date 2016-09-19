@@ -20,25 +20,30 @@ package Game;
 public class Display {
     
     private Map map;
+    private Pacman pacman;
 
     /**
-     * affiche le plateau du jeu en mode texte
-     * @param args width, height
+     * construit un affichage avec un plateau et un pacman
+     * @param widthMap, heightMap, XPacman, YPacman
      */
-    
-    public Display(int w, int h){
-        this.map = new Map(w, h);
-        System.out.println(this.getMap().getHeight());
+    public Display(int widthMap, int heightMap, int XPacman, int YPacman){
+        this.map = new Map(widthMap, heightMap);
+        this.pacman = new Pacman(new Cellule(XPacman, YPacman, false));
     }
     
+    /**
+     * affiche le plateau et Pacman en mode texte
+     */
     public void displayMap(){
         this.getMap().initialization();
-        System.out.println(this.getMap().getHeight());
+
         Cellule[][] c = this.getMap().getCellules();
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
-             if(c[j][i].getWall())
+            if(c[j][i].getWall())
                 System.out.print("*");
+            else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i)
+                System.out.print("C");
             else
                 System.out.print(".");
             }
@@ -46,8 +51,16 @@ public class Display {
         }
     }
     
+    
+    public void refresh(){
+    }
+    
     public Map getMap(){
         return this.map;
+    }
+    
+    public Pacman getPacman(){
+        return this.pacman;
     }
     
 }

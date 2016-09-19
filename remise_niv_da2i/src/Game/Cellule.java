@@ -13,7 +13,7 @@ package Game;
 class Cellule {
     
     private int x,y;
-    boolean wall;
+    private boolean wall;
     
     public Cellule(int x, int y, boolean wall){
         this.x = x;
