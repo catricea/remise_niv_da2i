@@ -27,7 +27,7 @@ public class Map {
 
     /**
      * constructeur du plateau de jeu avec une largeur et une hauteur
-     * @param args width, height
+     * @param width, height
      */
     public Map(int width, int height) {
         this.cellules = new Cellule[width][height];
