@@ -14,15 +14,20 @@ class Cellule {
     
     private int x,y;
     private boolean wall;
+    private boolean passed;
     
     public Cellule(int x, int y, boolean wall){
         this.x = x;
         this.y = y;
         this.wall = wall;
+        this.passed = false;
     }
     
     public boolean getWall(){
         return this.wall;
+    }
+    public boolean getPassed(){
+        return this.passed;
     }
     public int getX(){
         return this.x;
@@ -35,6 +40,9 @@ class Cellule {
     }
     public void setY(int y){
         this.y = y;
+    }
+    public void setPassed(boolean passed){
+        this.passed = passed;
     }
     
 }

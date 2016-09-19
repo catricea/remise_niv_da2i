@@ -50,7 +50,10 @@ public class Display extends JFrame implements KeyListener{
                 System.out.print("*");
             //affiche le pacman
             else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i)
-                System.out.print("C");
+                System.out.print("C");            
+            //affiche le chemin où pacman est passé
+            else if(c[j][i].getPassed())
+                System.out.print(" ");
             //affiche le chemin
             else
                 System.out.print(".");
@@ -64,20 +67,28 @@ public class Display extends JFrame implements KeyListener{
         Cellule c = this.getPacman().getPosition();
         switch(this.getPacman().getOrientation()){
             case RIGHT:
-                if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall())
+                if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall()){
                     this.getPacman().setPosition(this.getPacman().getPosition().getX()+1, this.getPacman().getPosition().getY());
+                    this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                }
                 break;
             case LEFT:
-                if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall())
+                if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall()){
                     this.getPacman().setPosition(this.getPacman().getPosition().getX()-1, this.getPacman().getPosition().getY());
+                    this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                }
                 break;
             case DOWN:
-                if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall())
+                if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall()){
                     this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()+1);
+                      this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                }
                 break;
             case UP:
-                if(!this.getMap().getCellules()[c.getX()][c.getY()-1].getWall())
+                if(!this.getMap().getCellules()[c.getX()][c.getY()-1].getWall()){
                     this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()-1);
+                    this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                }
                 break;
             
         }
