@@ -33,7 +33,9 @@ public class Map {
         this.width = width;
         this.height = height;
     }
-    
+    /**
+     * initialise le plateau en mode texte avec des murs aléatoirement
+     */
     public void initialization(){
         for(int i = 0; i < this.getWidth(); i++){
             for(int j = 0; j < this.getHeight(); j++){
@@ -53,12 +55,24 @@ public class Map {
         }
     }
     
+    /**
+     * réccupère le tableau de cellules du plateau
+     * @return celulles
+     */
     public Cellule[][] getCellules(){
         return this.cellules;
     }
+    /**
+     * réccupère la largeur du plateau
+     * @return width
+     */
     public int getWidth(){
         return this.width;
     }
+    /**
+     * réccupère la hauteur du plateau
+     * @return height
+     */
     public int getHeight(){
         return this.height;
     }
