@@ -32,6 +32,9 @@ public class Display extends JFrame implements KeyListener{
     public Display(int widthMap, int heightMap, int XPacman, int YPacman){
         this.map = new Map(widthMap, heightMap);
         this.pacman = new Pacman(new Cellule(XPacman, YPacman, false));
+        
+        this.setSize(widthMap, heightMap);
+        
         this.getMap().initialization();
         this.addKeyListener(this);
     }
@@ -109,14 +112,6 @@ public class Display extends JFrame implements KeyListener{
         displayMap();
     }
     
-    public Map getMap(){
-        return this.map;
-    }
-    
-    public Pacman getPacman(){
-        return this.pacman;
-    }
-
     @Override
     public void keyTyped(KeyEvent e) {
         
@@ -146,5 +141,14 @@ public class Display extends JFrame implements KeyListener{
     public void keyReleased(KeyEvent e) {
         
     }
+
     
+    public Map getMap(){
+        return this.map;
+    }
+    
+    public Pacman getPacman(){
+        return this.pacman;
+    }
+
 }
