@@ -6,6 +6,10 @@
 
 package Game;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+
 /**
  * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice 
 */
@@ -35,18 +39,20 @@ public class Main {
 /**
  * @param args
  */
-    public static void main(String[] args) throws InterruptedException {
-        Display d = new Display(41, 21, -1, 11);
-        while(true){
-            
-            d.refresh();
-            //mode texte
-            //d.displayMap();
-            //mode graphique
-            d.repaint();
-            Thread.sleep(200);
-            d.setVisible(true);
-        }
+    public static void main(String[] args){
+
+        final Display d = new Display(41, 21, -1 , 11); 
+        Thread t = new Thread(
+            new Runnable() { 
+                public void run() {
+                    d.refresh();
+                    //mode texte
+                    //d.displayMap();
+                    //mode graphique
+                    d.repaint();
+                    d.setVisible(true);
+                }
+            }
+        );
     }
-    
 }
