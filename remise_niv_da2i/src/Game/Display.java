@@ -8,11 +8,11 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.GridLayout;
+import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 /**
  * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice
  */
@@ -44,10 +44,16 @@ public class Display extends JFrame implements KeyListener{
         this.setTitle("PacMan");
         this.setSize(1280,720);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(new GridLayout(widthMap, heightMap));
+        //grid = new GridLayout(widthMap, heightMap);
+        //this.setLayout(grid);
+        this.setLayout(new GridBagLayout());
+        //GridBagConstraints gbc = new GridBagConstraints();
+        ///gbc.gridx=i;
+        //gbc.gridy=j;
+        //add(b1, gbc);
         //this.pack();
         this.setVisible(true);
-               
+        
     }
     
     /**
