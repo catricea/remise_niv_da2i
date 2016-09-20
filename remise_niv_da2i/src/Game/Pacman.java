@@ -22,7 +22,7 @@ class Pacman {
     public Pacman(Cellule c){
         this.position = c;
         this.dead = false;
-        this.orientation = Orientation.RIGHT;
+        this.orientation = Orientation.UP;
     }
     /**
     * réccupère le boolean permettant de savoir si pacman est mort ou non

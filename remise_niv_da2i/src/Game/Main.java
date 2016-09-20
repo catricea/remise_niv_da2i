@@ -45,8 +45,7 @@ public class Main {
          
        Thread thread = new Thread(new Runnable(){
             public void run(){
-                Display d = new Display(41, 21, -1, 11);
-                
+                Display d = new Display(41, 21, 20, 12);
                
                     while(true){
                         d.setVisible(true);

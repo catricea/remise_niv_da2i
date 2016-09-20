@@ -28,7 +28,9 @@ public class Display extends JFrame implements KeyListener{
     
     private Map map;
     private Pacman pacman;
-    private Ghost ghost;
+    private Ghost ghost1;
+    private Ghost ghost2;
+    
     
 
     /**
@@ -39,7 +41,8 @@ public class Display extends JFrame implements KeyListener{
         
         this.map = new Map(widthMap, heightMap);
         this.pacman = new Pacman(new Cellule(XPacman, YPacman, false));
-        this.ghost = new Ghost(new Cellule(3,11,false));
+        this.ghost1 = new Ghost(new Cellule(21,10,false));
+        this.ghost2 = new Ghost(new Cellule(20,10,false));
         
         this.getMap().initialization();
         this.addKeyListener(this);
@@ -78,7 +81,7 @@ public class Display extends JFrame implements KeyListener{
                     g.fillOval(j*30+5, i*30+35, 20, 20);
                 }
                 //affiche le ghost
-                else if(getGhost().getPosition().getX() == j && getGhost().getPosition().getY() == i){
+                else if(this.getGhost1().getPosition().getX() == j && getGhost1().getPosition().getY() == i){
                     g.setColor(new Color(240, 6, 6));
                     g.fillOval(j*30+5, i*30+35, 20, 20);
                 }
@@ -121,7 +124,7 @@ public class Display extends JFrame implements KeyListener{
                 System.out.print("C");            
             
             //affiche le ghost
-             else if(getGhost().getPosition().getX() == j && getGhost().getPosition().getY() == i)
+             else if(getGhost1().getPosition().getX() == j && getGhost1().getPosition().getY() == i)
                 System.out.print("F");
             
             //affiche le chemin où pacman est passé
@@ -180,17 +183,17 @@ public class Display extends JFrame implements KeyListener{
             
         }
         //Ghost Mouvements
-        Cellule c2 = this.getGhost().getPosition();
-        switch(this.getGhost().getOrientation()){
+        Cellule c2 = this.getGhost1().getPosition();
+        switch(this.getGhost1().getOrientation()){
             case RIGHT:
                 //si Ghost touche la bordure droite this.getMap().getWidth()-1
-                if(this.getGhost().getPosition().getX()==this.getMap().getWidth()-1){
+                if(this.getGhost1().getPosition().getX()==this.getMap().getWidth()-1){
                     //Pacman est tp devant l'autre passage
-                    this.getGhost().setPosition(-1, this.getGhost().getPosition().getY());
+                    this.getGhost1().setPosition(-1, this.getGhost1().getPosition().getY());
                 }
                 if(!this.getMap().getCellules()[c2.getX()+1][c2.getY()].getWall()){
                     
-                    this.getGhost().setPosition(this.getGhost().getPosition().getX()+1, this.getGhost().getPosition().getY());
+                    this.getGhost1().setPosition(this.getGhost1().getPosition().getX()+1, this.getGhost1().getPosition().getY());
                 }
                 
                 else{
@@ -199,10 +202,10 @@ public class Display extends JFrame implements KeyListener{
                     switch(nombre)
                     {
                         case 0:
-                            this.getGhost().setOrientation(Orientation.UP);
+                            this.getGhost1().setOrientation(Orientation.UP);
                             break;
                         case 1:
-                            this.getGhost().setOrientation(Orientation.DOWN);
+                            this.getGhost1().setOrientation(Orientation.DOWN);
                             break;
                     }
                 }
@@ -223,12 +226,12 @@ public class Display extends JFrame implements KeyListener{
                 break;
             case LEFT:
                 //si Ghost touche la bordure gauche this.getMap().getWidth()-1
-                if(this.getGhost().getPosition().getX()==0){
+                if(this.getGhost1().getPosition().getX()==0){
                     //Ghost est tp devant l'autre passage
-                    this.getGhost().setPosition(this.getMap().getWidth(), this.getGhost().getPosition().getY());
+                    this.getGhost1().setPosition(this.getMap().getWidth(), this.getGhost1().getPosition().getY());
                 }
                 if(!this.getMap().getCellules()[c2.getX()-1][c2.getY()].getWall()){
-                    this.getGhost().setPosition(this.getGhost().getPosition().getX()-1, this.getGhost().getPosition().getY());
+                    this.getGhost1().setPosition(this.getGhost1().getPosition().getX()-1, this.getGhost1().getPosition().getY());
                 }
                 else{
                     Random rand = new Random();
@@ -236,10 +239,10 @@ public class Display extends JFrame implements KeyListener{
                     switch(nombre)
                     {
                         case 0:
-                            this.getGhost().setOrientation(Orientation.UP);
+                            this.getGhost1().setOrientation(Orientation.UP);
                             break;
                         case 1:
-                            this.getGhost().setOrientation(Orientation.DOWN);
+                            this.getGhost1().setOrientation(Orientation.DOWN);
                             break;
                     }
                 }
@@ -249,10 +252,10 @@ public class Display extends JFrame implements KeyListener{
                     switch(nombre)
                     {
                         case 0:
-                            this.getGhost().setOrientation(Orientation.UP);
+                            this.getGhost1().setOrientation(Orientation.UP);
                             break;
                         case 1:
-                            this.getGhost().setOrientation(Orientation.DOWN);
+                            this.getGhost1().setOrientation(Orientation.DOWN);
                             break;
                     }
                 }*/
@@ -261,7 +264,7 @@ public class Display extends JFrame implements KeyListener{
                 
             case DOWN:
                 if(!this.getMap().getCellules()[c2.getX()][c2.getY()+1].getWall()){
-                    this.getGhost().setPosition(this.getGhost().getPosition().getX(), this.getGhost().getPosition().getY()+1);
+                    this.getGhost1().setPosition(this.getGhost1().getPosition().getX(), this.getGhost1().getPosition().getY()+1);
                 }
                 else{
                     Random rand = new Random();
@@ -269,10 +272,10 @@ public class Display extends JFrame implements KeyListener{
                     switch(nombre)
                     {
                         case 0:
-                            this.getGhost().setOrientation(Orientation.LEFT);
+                            this.getGhost1().setOrientation(Orientation.LEFT);
                             break;
                         case 1:
-                            this.getGhost().setOrientation(Orientation.RIGHT);
+                            this.getGhost1().setOrientation(Orientation.RIGHT);
                             break;
                     }
                 }
@@ -282,17 +285,17 @@ public class Display extends JFrame implements KeyListener{
                     switch(nombre)
                     {
                         case 0:
-                            this.getGhost().setOrientation(Orientation.LEFT);
+                            this.getGhost1().setOrientation(Orientation.LEFT);
                             break;
                         case 1:
-                            this.getGhost().setOrientation(Orientation.RIGHT);
+                            this.getGhost1().setOrientation(Orientation.RIGHT);
                             break;
                     }
                 }*/
                 break;
             case UP:
                 if(!this.getMap().getCellules()[c2.getX()][c2.getY()-1].getWall()){
-                    this.getGhost().setPosition(this.getGhost().getPosition().getX(), this.getGhost().getPosition().getY()-1);
+                    this.getGhost1().setPosition(this.getGhost1().getPosition().getX(), this.getGhost1().getPosition().getY()-1);
                 }
                 else{
                     Random rand = new Random();
@@ -300,10 +303,10 @@ public class Display extends JFrame implements KeyListener{
                     switch(nombre)
                     {
                         case 0:
-                            this.getGhost().setOrientation(Orientation.LEFT);
+                            this.getGhost1().setOrientation(Orientation.LEFT);
                             break;
                         case 1:
-                            this.getGhost().setOrientation(Orientation.RIGHT);
+                            this.getGhost1().setOrientation(Orientation.RIGHT);
                             break;
                     }
                 }
@@ -363,7 +366,7 @@ public class Display extends JFrame implements KeyListener{
     public Pacman getPacman(){
         return this.pacman;
     }
-    public Ghost getGhost(){
-        return this.ghost;
+    public Ghost getGhost1(){
+        return this.ghost1;
     }
 }
