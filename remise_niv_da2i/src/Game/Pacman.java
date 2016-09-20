@@ -20,7 +20,7 @@ class Pacman {
     private boolean dead;
     private Orientation orientation;
     /**
-    *constructeur du pacman avec une position et initilisation son orientation vers le haut
+    *constructeur du pacman avec une position sur le plateau et initilisation de son orientation vers le haut
     * @param c 
     */
     public Pacman(Cellule c){
@@ -36,7 +36,7 @@ class Pacman {
         return this.dead;
     }
     /**
-    * réccupère la position de pacman
+    * réccupère la position de pacman sur le plateau
     * @return position
     */
     public Cellule getPosition(){
@@ -44,7 +44,7 @@ class Pacman {
     }
     /**
     * réccupère l'orientation de pacman
-    * @return position
+    * @return orientation
     */
     public Orientation getOrientation(){
         return this.orientation;
