@@ -45,12 +45,22 @@ public class Map {
                     //entrée et sortie du tableau
                     if((i == 0 && j == (this.getHeight() + 1)/2) || (i == this.getWidth()-1 && j == (this.getHeight() + 1)/2))
                         this.getCellules()[i][j] = new Cellule(i, j, false);
+                    else if( (i == 0 && j >=(this.getHeight() + 1)/2-2) && j<=(this.getHeight() +1 )/2+2 || (i == this.getWidth()-1 && j == (this.getHeight() + 1)/2))
+                        this.getCellules()[i][j] = new Cellule(i, j, false);
                     else
                        this.getCellules()[i][j] = new Cellule(i, j, true);
+                    
                 }
                 //génère les murs
-                else if(i % 2 == 0 && j % 2 == 0)
+                /*else if(i % 2 == 0 && j % 2 == 0)
                         this.getCellules()[i][j] = new Cellule(i, j, new Random().nextBoolean());
+                //génère les bords*/
+                /*else if(j==0){
+                    this.getCellules()[i][j] = new Cellule(i, j, true);     
+                }*/
+                /*else if(){
+                    this.getCellules()[i][j] = new Cellule(i, j, true);
+                }*/
                 //génère le chemin
                 else
                 this.getCellules()[i][j] = new Cellule(i, j, false);             
