@@ -8,9 +8,6 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
@@ -208,8 +205,7 @@ public class Display extends JFrame implements KeyListener{
     public void keyReleased(KeyEvent e) {
         
     }
-
-    
+  
     public Map getMap(){
         return this.map;
     }

@@ -44,7 +44,7 @@ public class Main {
             //d.displayMap();
             //mode graphique
             d.repaint();
-            Thread.sleep(250);
+            Thread.sleep(200);
             d.setVisible(true);
         }
     }
