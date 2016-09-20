@@ -45,8 +45,12 @@ public class Map {
                     //entrée et sortie du tableau
                     if((i == 0 && j == (this.getHeight() + 1)/2) || (i == this.getWidth()-1 && j == (this.getHeight() + 1)/2))
                         this.getCellules()[i][j] = new Cellule(i, j, false);
-                    else if( (i == 0 && j >=(this.getHeight() + 1)/2-2) && j<=(this.getHeight() +1 )/2+2 || (i == this.getWidth()-1 && j == (this.getHeight() + 1)/2))
-                        this.getCellules()[i][j] = new Cellule(i, j, false);
+                    //Différents obstacles
+                    /*else if( (i == 0 && j >=(this.getHeight() + 1)/2-2) && j<=(this.getHeight() +1 )/2+2 || (i == this.getWidth()-1 && j == (this.getHeight() + 1)/2))
+                        this.getCellules()[i][j] = new Cellule(i, j, false);*/
+                    /*else if(j==1 && (i==19 || i==20)){
+                        this.getCellules()[j][i] = new Cellule(i, j, true);
+                    }*/
                     else
                        this.getCellules()[i][j] = new Cellule(i, j, true);
                     
