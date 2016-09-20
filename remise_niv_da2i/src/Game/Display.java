@@ -67,6 +67,8 @@ public class Display extends JFrame implements KeyListener{
         
         //réccupère un tableau de cellule
         Cellule[][] c = this.getMap().getCellules();
+        
+        Color defaultColor = this.getBackground();
    
         //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
@@ -86,7 +88,7 @@ public class Display extends JFrame implements KeyListener{
                 
                 //affiche le chemin où pacman est passé
                 else if(c[j][i].getPassed()){
-                    g.setColor(Color.WHITE);
+                    g.setColor(defaultColor);
                     g.fillRect(j*30, i*30+30, 30, 30);
                 }
                 

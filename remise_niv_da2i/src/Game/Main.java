@@ -39,8 +39,11 @@ public class Main {
         Display d = new Display(41, 21, -1, 11);
         while(true){
             
-            d.displayMap();
             d.refresh();
+            //mode texte
+            //d.displayMap();
+            //mode graphique
+            d.repaint();
             Thread.sleep(250);
             d.setVisible(true);
         }
