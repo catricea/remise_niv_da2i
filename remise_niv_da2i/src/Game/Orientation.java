@@ -10,6 +10,12 @@ package Game;
  *
  * @author catricea
  */
+
+/**
+ * définit l'orientation de l'objet en mouvement
+ * pour pacman à l'aide des touches fléchées et pour les fantômes de manière aléatoire
+ * @author catricea
+ */
 public enum Orientation {   
     LEFT, RIGHT, UP, DOWN;
 }
