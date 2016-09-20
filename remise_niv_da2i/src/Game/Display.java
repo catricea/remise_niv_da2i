@@ -6,6 +6,7 @@
 
 package Game;
 
+import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
@@ -71,6 +72,13 @@ public class Display extends JFrame implements KeyListener{
         }
     }
     
+    public void displayFrame(Graphics g){
+        for(int i = 0; i < this.getMap().getHeight(); i++){
+            for(int j = 0; j < this.getMap().getWidth(); j++){
+                g.drawRect(j, i, 10, 20);
+            }
+        }
+    }
     
     public void refresh(){
         Cellule c = this.getPacman().getPosition();
