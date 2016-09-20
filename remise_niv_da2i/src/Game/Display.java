@@ -8,7 +8,6 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
@@ -28,6 +27,7 @@ public class Display extends JFrame implements KeyListener{
     
     private Map map;
     private Pacman pacman;
+    
 
     /**
      * construit un affichage avec un plateau et un pacman
@@ -37,50 +37,57 @@ public class Display extends JFrame implements KeyListener{
         
         this.map = new Map(widthMap, heightMap);
         this.pacman = new Pacman(new Cellule(XPacman, YPacman, false));
+        
         this.getMap().initialization();
         this.addKeyListener(this);
         
-        //Fenetre
+        //Frame
+        this.setSize(widthMap, heightMap);
         this.setTitle("PacMan");
         this.setSize(1280,720);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //grid = new GridLayout(widthMap, heightMap);
-        //this.setLayout(grid);
-        this.setLayout(new GridBagLayout());
-        //GridBagConstraints gbc = new GridBagConstraints();
-        ///gbc.gridx=i;
-        //gbc.gridy=j;
-        //add(b1, gbc);
-        //this.pack();
-        this.setVisible(true);
-        
     }
     
     /**
      * 
-     * @param g 
+     * @param graphics
      */
     public void paint(Graphics g){
         
         //réccupère un tableau de cellule
         Cellule[][] c = this.getMap().getCellules();
         
+        Color defaultColor = this.getBackground();
+   
         //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
-                
+
                 //affiche les murs
                 if(c[j][i].getWall()){
-                    g.setColor(Color.blue);
-                
-                }
-                                
-                 //affiche le pacman
-                else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i){
-                    g.setColor(Color.yellow);
+                    g.setColor( new Color(129, 159, 210));
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                }                
                     
+                //affiche le pacman
+                else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i){
+                    g.setColor(new Color(255, 224, 119));
+                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                }   
+                
+                //affiche le chemin où pacman est passé
+                else if(c[j][i].getPassed()){
+                    g.setColor(defaultColor);
+                    g.fillRect(j*30, i*30+30, 30, 30);
                 }
-            }
+                
+                //affiche le chemin
+                else{
+                    g.setColor(new Color(235, 88, 59));
+                    g.fillOval(j*30+10, i*30+40, 10, 10);
+                }
+
+            }          
         }
     }
     
@@ -91,15 +98,19 @@ public class Display extends JFrame implements KeyListener{
         
         Cellule[][] c = this.getMap().getCellules();
         System.out.println(this.getPacman().getOrientation());
+        
         //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
+                
             //affiche les murs
             if(c[j][i].getWall())
                 System.out.print("*");
+            
             //affiche le pacman
             else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i)
                 System.out.print("C");            
+            
             //affiche le chemin où pacman est passé
             else if(c[j][i].getPassed())
                 System.out.print(" ");
@@ -108,10 +119,9 @@ public class Display extends JFrame implements KeyListener{
                 System.out.print(".");
             }
             System.out.print("\n");
-        }
-        
+        }     
     }
-
+   
     public void refresh(){
         Cellule c = this.getPacman().getPosition();
         switch(this.getPacman().getOrientation()){
@@ -158,14 +168,6 @@ public class Display extends JFrame implements KeyListener{
         displayMap();
     }
     
-    public Map getMap(){
-        return this.map;
-    }
-    
-    public Pacman getPacman(){
-        return this.pacman;
-    }
-
     @Override
     public void keyTyped(KeyEvent e) {
         
@@ -195,5 +197,14 @@ public class Display extends JFrame implements KeyListener{
     public void keyReleased(KeyEvent e) {
         
     }
+
     
+    public Map getMap(){
+        return this.map;
+    }
+    
+    public Pacman getPacman(){
+        return this.pacman;
+    }
+
 }

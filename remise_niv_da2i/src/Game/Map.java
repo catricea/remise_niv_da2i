@@ -35,7 +35,7 @@ public class Map {
         this.height = height;
     }
     /**
-     * initialise le plateau en mode texte avec des murs aléatoirement
+     * initialise le plateau avec des murs aléatoirement
      */
     public void initialization(){
         for(int i = 0; i < this.getWidth(); i++){
