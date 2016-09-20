@@ -6,6 +6,7 @@
 
 package Game;
 
+import java.awt.EventQueue;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,23 +37,35 @@ import java.util.TimerTask;
 //juste pas de add
  
 public class Main {
+    
 /**
  * @param args
  */
     public static void main(String[] args){
-
-        final Display d = new Display(41, 21, -1 , 11); 
-        Thread t = new Thread(
-            new Runnable() { 
-                public void run() {
-                    d.refresh();
-                    //mode texte
-                    //d.displayMap();
-                    //mode graphique
-                    d.repaint();
-                    d.setVisible(true);
+         
+       Thread thread = new Thread(new Runnable(){
+            public void run(){
+                Display d = new Display(41, 21, -1, 11);
+                
+               
+                    while(true){
+                        d.setVisible(true);
+                        d.refresh();
+                        //mode texte
+                        //d.displayMap();
+                        //mode graphique
+                        d.repaint();
+                        try{
+                        Thread.sleep(180);
+                        }catch(InterruptedException e){
+                    e.printStackTrace();
                 }
+                    
+                }
+                
             }
-        );
+                
+        });
+       thread.start();
     }
 }
