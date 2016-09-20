@@ -6,6 +6,10 @@
 
 package Game;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+
 /**
  * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice 
 */
@@ -35,18 +39,36 @@ public class Main {
 /**
  * @param args
  */
+    
     public static void main(String[] args) throws InterruptedException {
-        Display d = new Display(41, 21, -1, 11);
-        while(true){
+
+        /*final Display d = new Display(41, 21, -1, 11);
+        TimerTask task;
+        task = new TimerTask(){
             
-            d.refresh();
+            @Override
+            public void run() {
+                throw new UnsupportedOperationException("Not supported yet.");
+                d.refresh();
+                //mode texte
+                //d.displayMap();
+                //mode graphique
+                d.repaint();
+                d.setVisible(true);
+            }
+        };
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(task, 0, 200);
+    }*/
+        Display d = new Display(41, 21, -1 , 11);
+        while(true){
+             d.refresh();
             //mode texte
             //d.displayMap();
             //mode graphique
             d.repaint();
-            Thread.sleep(250);
             d.setVisible(true);
+            Thread.sleep(200);
         }
     }
-    
 }

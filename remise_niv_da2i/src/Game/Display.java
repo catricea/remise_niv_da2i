@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 import javax.swing.JFrame;
 
 /**
@@ -27,6 +28,7 @@ public class Display extends JFrame implements KeyListener{
     
     private Map map;
     private Pacman pacman;
+    private Ghost ghost;
     
 
     /**
@@ -37,6 +39,7 @@ public class Display extends JFrame implements KeyListener{
         
         this.map = new Map(widthMap, heightMap);
         this.pacman = new Pacman(new Cellule(XPacman, YPacman, false));
+        this.ghost = new Ghost(new Cellule(3,11,false));
         
         this.getMap().initialization();
         this.addKeyListener(this);
@@ -73,8 +76,12 @@ public class Display extends JFrame implements KeyListener{
                 else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i){
                     g.setColor(new Color(255, 224, 119));
                     g.fillOval(j*30+5, i*30+35, 20, 20);
-                }   
-                
+                }
+                //affiche le ghost
+                else if(getGhost().getPosition().getX() == j && getGhost().getPosition().getY() == i){
+                    g.setColor(new Color(240, 6, 6));
+                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                }
                 //affiche le chemin où pacman est passé
                 else if(c[j][i].getPassed()){
                     g.setColor(defaultColor);
@@ -83,6 +90,8 @@ public class Display extends JFrame implements KeyListener{
                 
                 //affiche le chemin
                 else{
+                    g.setColor(defaultColor);
+                    g.fillRect(j*30, i*30+30, 30, 30);
                     g.setColor(new Color(235, 88, 59));
                     g.fillOval(j*30+10, i*30+40, 10, 10);
                 }
@@ -111,6 +120,10 @@ public class Display extends JFrame implements KeyListener{
             else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i)
                 System.out.print("C");            
             
+            //affiche le ghost
+             else if(getGhost().getPosition().getX() == j && getGhost().getPosition().getY() == i)
+                System.out.print("F");
+            
             //affiche le chemin où pacman est passé
             else if(c[j][i].getPassed())
                 System.out.print(" ");
@@ -123,6 +136,7 @@ public class Display extends JFrame implements KeyListener{
     }
    
     public void refresh(){
+        // Pacman mouvements
         Cellule c = this.getPacman().getPosition();
         switch(this.getPacman().getOrientation()){
             case RIGHT:
@@ -162,6 +176,150 @@ public class Display extends JFrame implements KeyListener{
                     this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()-1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
+                break;
+            
+        }
+        //Ghost Mouvements
+        Cellule c2 = this.getGhost().getPosition();
+        switch(this.getGhost().getOrientation()){
+            case RIGHT:
+                //si Ghost touche la bordure droite this.getMap().getWidth()-1
+                if(this.getGhost().getPosition().getX()==this.getMap().getWidth()-1){
+                    //Pacman est tp devant l'autre passage
+                    this.getGhost().setPosition(-1, this.getGhost().getPosition().getY());
+                }
+                if(!this.getMap().getCellules()[c2.getX()+1][c2.getY()].getWall()){
+                    
+                    this.getGhost().setPosition(this.getGhost().getPosition().getX()+1, this.getGhost().getPosition().getY());
+                }
+                
+                else{
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(2);
+                    switch(nombre)
+                    {
+                        case 0:
+                            this.getGhost().setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            this.getGhost().setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+                /*if(!this.getMap().getCellules()[c2.getX()+1][c2.getY()].getWall()){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(2);
+                    switch(nombre)
+                    {
+                        case 0:
+                            this.getGhost().setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            this.getGhost().setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                    
+                }*/
+                break;
+            case LEFT:
+                //si Ghost touche la bordure gauche this.getMap().getWidth()-1
+                if(this.getGhost().getPosition().getX()==0){
+                    //Ghost est tp devant l'autre passage
+                    this.getGhost().setPosition(this.getMap().getWidth(), this.getGhost().getPosition().getY());
+                }
+                if(!this.getMap().getCellules()[c2.getX()-1][c2.getY()].getWall()){
+                    this.getGhost().setPosition(this.getGhost().getPosition().getX()-1, this.getGhost().getPosition().getY());
+                }
+                else{
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(2);
+                    switch(nombre)
+                    {
+                        case 0:
+                            this.getGhost().setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            this.getGhost().setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+                /*if(!this.getMap().getCellules()[c2.getX()-1][c2.getY()].getWall()){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(2);
+                    switch(nombre)
+                    {
+                        case 0:
+                            this.getGhost().setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            this.getGhost().setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }*/
+                break;
+                
+                
+            case DOWN:
+                if(!this.getMap().getCellules()[c2.getX()][c2.getY()+1].getWall()){
+                    this.getGhost().setPosition(this.getGhost().getPosition().getX(), this.getGhost().getPosition().getY()+1);
+                }
+                else{
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(2);
+                    switch(nombre)
+                    {
+                        case 0:
+                            this.getGhost().setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            this.getGhost().setOrientation(Orientation.RIGHT);
+                            break;
+                    }
+                }
+                /*if(!this.getMap().getCellules()[c2.getX()][c2.getY()+1].getWall()){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(2);
+                    switch(nombre)
+                    {
+                        case 0:
+                            this.getGhost().setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            this.getGhost().setOrientation(Orientation.RIGHT);
+                            break;
+                    }
+                }*/
+                break;
+            case UP:
+                if(!this.getMap().getCellules()[c2.getX()][c2.getY()-1].getWall()){
+                    this.getGhost().setPosition(this.getGhost().getPosition().getX(), this.getGhost().getPosition().getY()-1);
+                }
+                else{
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(2);
+                    switch(nombre)
+                    {
+                        case 0:
+                            this.getGhost().setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            this.getGhost().setOrientation(Orientation.RIGHT);
+                            break;
+                    }
+                }
+                /*if(!this.getMap().getCellules()[c2.getX()][c2.getY()-1].getWall()){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(2);
+                    switch(nombre)
+                    {
+                        case 0:
+                            this.getGhost().setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            this.getGhost().setOrientation(Orientation.RIGHT);
+                            break;
+                    }
+                }*/
                 break;
             
         }
@@ -206,5 +364,7 @@ public class Display extends JFrame implements KeyListener{
     public Pacman getPacman(){
         return this.pacman;
     }
-
+    public Ghost getGhost(){
+        return this.ghost;
+    }
 }
