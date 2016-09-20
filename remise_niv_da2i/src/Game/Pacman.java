@@ -50,10 +50,10 @@ class Pacman {
         return this.orientation;
     }
     /**
-     * permet de modifier la position de pacman
-     * @param x
-     * @param y 
-     */
+    * permet de modifier la position de pacman
+    * @param x
+    * @param y 
+    */
     public void setPosition(int x, int y){
         this.position.setX(x);
         this.position.setY(y);
