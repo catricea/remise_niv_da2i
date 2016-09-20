@@ -6,10 +6,15 @@
 
 package Game;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 /**
  * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice
  */
@@ -25,24 +30,74 @@ public class Display extends JFrame implements KeyListener{
     
     private Map map;
     private Pacman pacman;
+    private JPanel panel;
+    
 
     /**
      * construit un affichage avec un plateau et un pacman
      * @param widthMap, heightMap, XPacman, YPacman
      */
     public Display(int widthMap, int heightMap, int XPacman, int YPacman){
+        
         this.map = new Map(widthMap, heightMap);
         this.pacman = new Pacman(new Cellule(XPacman, YPacman, false));
         
-        this.setSize(widthMap, heightMap);
-        
         this.getMap().initialization();
         this.addKeyListener(this);
-        //Fenetre
-        this.setVisible(true);
+        
+        //Frame
+        this.setSize(widthMap, heightMap);
         this.setTitle("PacMan");
         this.setSize(1280,720);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.panel = new JPanel();
+        this.add(panel);
+        //Layout
+        this.setLayout(null);
+        
+        //this.pack();
+        this.setVisible(true);         
+    }
+    
+    /**
+     * 
+     * @param graphics
+     */
+    public void paint(Graphics g){
+        
+        //réccupère un tableau de cellule
+        Cellule[][] c = this.getMap().getCellules();
+   
+        //parcourt le tableau de cellules
+        for(int i = 0; i < this.getMap().getHeight(); i++){
+            for(int j = 0; j < this.getMap().getWidth(); j++){
+
+                //affiche les murs
+                if(c[j][i].getWall()){
+                    g.setColor( new Color(129, 159, 210));
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                }                
+                    
+                //affiche le pacman
+                else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i){
+                    g.setColor(new Color(255, 224, 119));
+                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                }   
+                
+                //affiche le chemin où pacman est passé
+                else if(c[j][i].getPassed()){
+                    g.setColor(Color.WHITE);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                }
+                
+                //affiche le chemin
+                else{
+                    g.setColor(new Color(235, 88, 59));
+                    g.fillOval(j*30+10, i*30+40, 10, 10);
+                }
+
+            }          
+        }
     }
     
     /**
@@ -52,15 +107,19 @@ public class Display extends JFrame implements KeyListener{
         
         Cellule[][] c = this.getMap().getCellules();
         System.out.println(this.getPacman().getOrientation());
+        
         //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
+                
             //affiche les murs
             if(c[j][i].getWall())
                 System.out.print("*");
+            
             //affiche le pacman
             else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i)
                 System.out.print("C");            
+            
             //affiche le chemin où pacman est passé
             else if(c[j][i].getPassed())
                 System.out.print(" ");
@@ -69,17 +128,9 @@ public class Display extends JFrame implements KeyListener{
                 System.out.print(".");
             }
             System.out.print("\n");
-        }
+        }     
     }
-    
-    public void displayFrame(Graphics g){
-        for(int i = 0; i < this.getMap().getHeight(); i++){
-            for(int j = 0; j < this.getMap().getWidth(); j++){
-                g.drawRect(j, i, 10, 20);
-            }
-        }
-    }
-    
+   
     public void refresh(){
         Cellule c = this.getPacman().getPosition();
         switch(this.getPacman().getOrientation()){
