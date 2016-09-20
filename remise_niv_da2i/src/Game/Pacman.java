@@ -20,7 +20,7 @@ class Pacman {
     private boolean dead;
     private Orientation orientation;
     /**
-    *constructeur du pacman avec une position et initilisation son 
+    *constructeur du pacman avec une position et initilisation son orientation vers le haut
     * @param c 
     */
     public Pacman(Cellule c){
@@ -29,7 +29,7 @@ class Pacman {
         this.orientation = Orientation.UP;
     }
     /**
-    * réccupère le boolean permettant de savoir si pacman est mort ou non
+    * réccupère le booléen permettant de savoir si pacman est mort ou non
     * @return dead
     */
     public boolean getDead(){
@@ -49,10 +49,19 @@ class Pacman {
     public Orientation getOrientation(){
         return this.orientation;
     }
+    /**
+     * permet de modifier la position de pacman
+     * @param x
+     * @param y 
+     */
     public void setPosition(int x, int y){
         this.position.setX(x);
         this.position.setY(y);
     }
+    /**
+     * permet de modifier l'orientation de pacman
+     * @param orientation 
+     */
     public void setOrientation(Orientation orientation){
         this.orientation = orientation;
     }
