@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice
@@ -32,8 +33,6 @@ public class Display extends JFrame implements KeyListener{
     private Ghost ghost2;
     private Ghost ghost3;
     private Ghost ghost4;
-    
-    
 
     /**
      * construit un affichage avec un plateau et un pacman
@@ -52,10 +51,10 @@ public class Display extends JFrame implements KeyListener{
         this.addKeyListener(this);
         
         //Frame
-        this.setSize(widthMap, heightMap);
         this.setTitle("PacMan");
         this.setSize(1280,720);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
     }
     
     /**
@@ -64,11 +63,11 @@ public class Display extends JFrame implements KeyListener{
      */
     public void paint(Graphics g){
         
+        Color defaultColor = this.getBackground();
+        
         //réccupère un tableau de cellule
         Cellule[][] c = this.getMap().getCellules();
         
-        Color defaultColor = this.getBackground();
-   
         //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
@@ -264,6 +263,8 @@ public class Display extends JFrame implements KeyListener{
                 if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall()){
                     p.setPosition(c.getX()+1, c.getY());
                     //pacmman est passé par cette case
+                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed())
+                        this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
                 break;
@@ -275,6 +276,8 @@ public class Display extends JFrame implements KeyListener{
                 }
                 if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall()){
                     p.setPosition(c.getX()-1, c.getY());
+                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed())
+                        this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
                 break;
@@ -283,12 +286,16 @@ public class Display extends JFrame implements KeyListener{
             case DOWN:
                 if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall()){
                     p.setPosition(c.getX(), c.getY()+1);
+                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed())
+                        this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
                 break;
             case UP:
                 if(!this.getMap().getCellules()[c.getX()][c.getY()-1].getWall()){
                     p.setPosition(c.getX(), c.getY()-1);
+                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed())
+                        this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
                 break;
