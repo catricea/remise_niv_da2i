@@ -46,6 +46,12 @@ public class Display extends JFrame implements KeyListener{
         this.ghost2 = new Ghost(new Cellule(19,11,false));
         this.ghost3 = new Ghost(new Cellule(19,10,false));
         this.ghost4 = new Ghost(new Cellule(21,10,false));
+        //test
+        this.ghost1.setWeak(true);
+        this.ghost2.setWeak(true);
+        this.ghost3.setWeak(true);
+        this.ghost4.setWeak(true);
+        
         
         this.getMap().initialization();
         this.addKeyListener(this);
@@ -56,13 +62,11 @@ public class Display extends JFrame implements KeyListener{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
-    
     /**
      * 
      * @param graphics
      */
     public void paint(Graphics g){
-        
         Color defaultColor = this.getBackground();
         
         //réccupère un tableau de cellule
@@ -82,23 +86,45 @@ public class Display extends JFrame implements KeyListener{
                     g.fillOval(j*30+5, i*30+35, 20, 20);
                 }
                 //affiche le ghost rouge
-                else if(this.getGhost().getPosition().getX() == j && getGhost().getPosition().getY() == i){
+                else if(this.getGhost().getPosition().getX() == j && getGhost().getPosition().getY() == i && !this.getGhost().getWeak()){
+                    //if getweak()
+                    //setColor
                     g.setColor(new Color(240, 6, 6));
                     g.fillOval(j*30+5, i*30+35, 20, 20);
                 }
                 //affiche le ghost bleu
-                else if(this.getGhost2().getPosition().getX() == j && getGhost2().getPosition().getY() == i){
+                else if(this.getGhost2().getPosition().getX() == j && getGhost2().getPosition().getY() == i && !this.getGhost2().getWeak()){
                     g.setColor(new Color(35, 245, 249));
                     g.fillOval(j*30+5, i*30+35, 20, 20);
                 }
                 //affiche le ghost orange
-                else if(this.getGhost3().getPosition().getX() == j && getGhost3().getPosition().getY() == i){
+                else if(this.getGhost3().getPosition().getX() == j && getGhost3().getPosition().getY() == i && !this.getGhost3().getWeak()){
                     g.setColor(new Color(247, 150, 40));
                     g.fillOval(j*30+5, i*30+35, 20, 20);
                 }
                 //affiche le ghost rose
-                else if(this.getGhost4().getPosition().getX() == j && getGhost4().getPosition().getY() == i){
+                else if(this.getGhost4().getPosition().getX() == j && getGhost4().getPosition().getY() == i && !this.getGhost4().getWeak()){
                     g.setColor(new Color(245, 164, 242));
+                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                }
+                //affiche le ghost rouge en bleu
+                else if(this.getGhost().getPosition().getX() == j && getGhost().getPosition().getY() == i && this.getGhost().getWeak()){
+                    g.setColor(new Color(6, 38, 225));
+                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                }
+                //affiche le ghost bleu en bleu
+                else if(this.getGhost2().getPosition().getX() == j && getGhost2().getPosition().getY() == i && this.getGhost2().getWeak()){
+                    g.setColor(new Color(6, 38, 225));
+                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                }
+                //affiche le ghost orange en bleu
+                else if(this.getGhost3().getPosition().getX() == j && getGhost3().getPosition().getY() == i && this.getGhost3().getWeak()){
+                    g.setColor(new Color(6, 38, 225));
+                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                }
+                //affiche le ghost rose en bleu
+                else if(this.getGhost4().getPosition().getX() == j && getGhost4().getPosition().getY() == i && this.getGhost4().getWeak()){
+                    g.setColor(new Color(6, 38, 225));
                     g.fillOval(j*30+5, i*30+35, 20, 20);
                 }
                 //affiche le chemin où pacman est passé
@@ -173,7 +199,12 @@ public class Display extends JFrame implements KeyListener{
                     
                     g.setPosition(c.getX()+1, c.getY());
                 }
-                
+                //Si on passe sur une vitamine
+                //if(c.getX()== j && c.getY()==i && g.getCountWeak()==0 && !c.getPassed())
+                //positions vitamines 1 == j && 3 == i || 39 == j && 3 == i || 1 == j && 18 == i || 39 == j && 18 == i
+                //if vitamine && getGhost().getCountWeak () == 0
+                //getGhost().setCountWeak(getCountWeak+1);
+                //5sec => cpt=30
                 else{
                     Random rand = new Random();
                     int nombre = rand.nextInt(2);

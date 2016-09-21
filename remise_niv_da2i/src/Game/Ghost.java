@@ -17,6 +17,8 @@ class Ghost {
     private Cellule position;
     private boolean dead;
     private Orientation orientation;
+    private boolean weak;
+    private int countWeak;
     /**
     *constructeur du fantôme avec une position sur le plateau et initilisation de son orientation vers le haut
     * @param c 
@@ -25,6 +27,8 @@ class Ghost {
         this.position = c;
         this.dead = false;
         this.orientation = Orientation.UP;
+        this.weak = false;
+        this.countWeak = 0;
     }
     /**
     * réccupère le boolean permettant de savoir si le fantôme est mort ou non
@@ -32,6 +36,13 @@ class Ghost {
     */
     public boolean getDead(){
         return this.dead;
+    }
+    /**
+     * récupère le boolean permettant de savoir si le fantôme est sensible à Pacman ou non
+     * @return weak
+     */
+    public boolean getWeak(){
+        return this.weak;
     }
     /**
     * réccupère la position du fantôme sur le plateau
@@ -62,5 +73,14 @@ class Ghost {
     */
     public void setOrientation(Orientation orientation){
         this.orientation = orientation;
+    }
+    public void setWeak(boolean a){
+        this.weak=a;
+    }
+    public int getCountWeak(){
+        return countWeak;
+    }
+    public void setCountWeak(int a){
+        this.countWeak = a;
     }
 }
