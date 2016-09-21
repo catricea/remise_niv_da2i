@@ -19,6 +19,8 @@ class Pacman {
     private Cellule position;
     private boolean dead;
     private int score;
+    private int ghostScore;
+    private int scoreFinal;
     private Orientation orientation;
     /**
     *constructeur du pacman avec une position sur le plateau et initilisation de son orientation vers le haut
@@ -28,6 +30,8 @@ class Pacman {
         this.position = c;
         this.dead = false;
         this.score = 0;
+        this.ghostScore = 0;
+        this.scoreFinal= 0;
         this.orientation = Orientation.UP;
     }
     /**
@@ -38,6 +42,13 @@ class Pacman {
         return this.dead;
     }
     /**
+     * permet de modifier l'état de Pacman de mort ou vif
+     * @param a 
+     */
+    public void setDead(boolean a){
+        this.dead=a;
+    }
+    /**
     * réccupère la position de pacman sur le plateau
     * @return position
     */
@@ -45,11 +56,25 @@ class Pacman {
         return this.position;
     }
     /**
-    * réccupère le score du joueur
+    * réccupère le score des petits points mangés
     * @return score
     */
     public int getScore(){
         return this.score;
+    }
+    /**
+     * réccupère le score des fantomes mangés
+     * @return ghostScore 
+     */
+    public int getGhostScore(){
+        return this.ghostScore;
+    }
+    /**
+     * réccupère le score final
+     * @return scoreFinal
+     */
+    public int getScoreFinal(){
+        return this.score+this.ghostScore;
     }
     /**
     * réccupère l'orientation de pacman
@@ -81,5 +106,11 @@ class Pacman {
     public void setScore(int score){
         this.score = score;
     }
-    
+    /**
+     * permet de modifier le score des fantômes mangés
+     * @param score
+     */
+    public void setGhostScore(int score){
+        this.ghostScore = score;
+    }
 }

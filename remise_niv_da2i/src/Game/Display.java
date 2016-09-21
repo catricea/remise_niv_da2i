@@ -41,11 +41,11 @@ public class Display extends JFrame implements KeyListener{
     public Display(int widthMap, int heightMap, int XPacman, int YPacman){
         
         this.map = new Map(widthMap, heightMap);
-        this.pacman = new Pacman(new Cellule(XPacman, YPacman, false));
-        this.ghost1 = new Ghost(new Cellule(21,11,false));
-        this.ghost2 = new Ghost(new Cellule(19,11,false));
-        this.ghost3 = new Ghost(new Cellule(19,10,false));
-        this.ghost4 = new Ghost(new Cellule(21,10,false));
+        this.pacman = new Pacman(new Cellule(XPacman, YPacman, false,false));
+        this.ghost1 = new Ghost(new Cellule(21,11,false,false));
+        this.ghost2 = new Ghost(new Cellule(19,11,false,false));
+        this.ghost3 = new Ghost(new Cellule(19,10,false,false));
+        this.ghost4 = new Ghost(new Cellule(21,10,false,false));
         //test
         /*this.ghost1.setWeak(true);
         this.ghost2.setWeak(true);
@@ -139,6 +139,12 @@ public class Display extends JFrame implements KeyListener{
                     g.setColor(new Color(6, 38, 225));
                     g.fillOval(j*30+10, i*30+40, 12, 12);
                 }
+                //retire des points aux endroits voulus, comme au mileu
+                else if(21 == j & 10 == i || 19 == j && 10 == i || 20 == j && 10 == i || 21 == j & 9 == i || 19 == j && 9 == i || 20 == j && 9 == i
+                        || 20==j & 8==i || 18==j & 12==i || 19==j & 12==i || 20==j & 12==i || 21==j & 12==i || 22==j & 12==i){
+                    g.setColor(defaultColor);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                }
                 //affiche le chemin
                 else{
                     g.setColor(defaultColor);
@@ -146,7 +152,6 @@ public class Display extends JFrame implements KeyListener{
                     g.setColor(new Color(235, 88, 59));
                     g.fillOval(j*30+10, i*30+40, 10, 10);
                 }
-
             }          
         }
     }
@@ -183,12 +188,38 @@ public class Display extends JFrame implements KeyListener{
                 System.out.print(".");
             }
             System.out.print("\n");
-            //System.out.println(this.ghost1.getCountWeak());
         }     
     }
     public void refreshGhost(Ghost g){
         //Ghost Mouvements
         Cellule c = g.getPosition();
+        //Permet aux fantômes de sortir de leur maison et de ne pas y rerentrer
+        if(g.getPosition().getX()==20 && g.getPosition().getY()==9 || g.getPosition().getY()==10 && g.getPosition().getX()==20){
+            g.setOrientation(Orientation.UP);
+        }
+        if(g.getPosition().getX()==20 && g.getPosition().getY()==7 && g.getOrientation()== Orientation.UP){
+            Random rand = new Random();
+                    int nombre = rand.nextInt(2);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                    }
+        }
+        //Tue le fantôme si il est mangé et fait réapparaitre le fantôme si il est mangé
+        if(c.getX()==this.pacman.getPosition().getX() && c.getY()==this.pacman.getPosition().getY() && g.getWeak()){
+            this.pacman.setGhostScore(this.pacman.getGhostScore()+100);
+            g.setPosition(21,11);
+        }
+        //5sec => cpt=30
+        if(g.getCountWeak()==30){
+            g.setWeak(false);
+            g.setCountWeak(0);
+        }
         switch(g.getOrientation()){
             case RIGHT:
                 //si Ghost touche la bordure droite this.getMap().getWidth()-1
@@ -281,7 +312,7 @@ public class Display extends JFrame implements KeyListener{
         Cellule c = p.getPosition();
         //Si on passe sur une vitamine jamais mangé auparavant et que les fantômes sont dangereux
         if((c.getX()== 1 && c.getY()==3) || (c.getX()== 39 && c.getY()==3) || (c.getX()== 1 && c.getY()==18) || (c.getX()== 39 && c.getY()==18) 
-                    && this.ghost1.getCountWeak()==0 && !c.getPassed()){
+                    && this.ghost1.getCountWeak()==0 && c.getVitamined()){
                 this.ghost1.setWeak(true);
                 this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);
                 this.ghost2.setWeak(true);
@@ -290,6 +321,7 @@ public class Display extends JFrame implements KeyListener{
                 this.ghost3.setCountWeak(this.ghost3.getCountWeak()+1);
                 this.ghost4.setWeak(true);
                 this.ghost4.setCountWeak(this.ghost4.getCountWeak()+1);
+                c.setVitamined(false);
                 }
         if(this.ghost1.getCountWeak()>0){
             this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);
@@ -297,77 +329,87 @@ public class Display extends JFrame implements KeyListener{
             this.ghost3.setCountWeak(this.ghost3.getCountWeak()+1);
             this.ghost4.setCountWeak(this.ghost4.getCountWeak()+1);
         }
-        //getGhost().setCountWeak(getCountWeak+1);
-        //5sec => cpt=30
-        if(this.ghost1.getCountWeak()==30){
-            this.ghost1.setWeak(false);
-            this.ghost1.setCountWeak(0);
-            this.ghost2.setWeak(false);
-            this.ghost1.setCountWeak(0);
-            this.ghost3.setWeak(false);
-            this.ghost1.setCountWeak(0);
-            this.ghost4.setWeak(false);
-            this.ghost1.setCountWeak(0);
-        }
+        
         Sound deplacement = new Sound("sounds/pacman_chomp.wav");
-
-        switch(this.getPacman().getOrientation()){
-            case RIGHT:
-                //si Pacman touche la bordure droite this.getMap().getWidth()-1
-                if(c.getX()==this.getMap().getWidth()-1){
-                    //Pacman est tp devant l'autre passage
-                    p.setPosition(-1, c.getY());
-                }
-                if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall()){
-                    p.setPosition(c.getX()+1, c.getY());
-                    //pacmman est passé par cette case
-                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
-                        this.getPacman().setScore(this.getPacman().getScore() + 1);
-                    this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                    deplacement.play();
-                    }
-                    
-                }
-                break;
-            case LEFT:
-                //si Pacman touche la bordure gauche this.getMap().getWidth()-1
-                if(c.getX()==0){
-                    //Pacman est tp devant l'autre passage
-                    p.setPosition(this.getMap().getWidth(), c.getY());
-                }
-                if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall()){
-                    p.setPosition(c.getX()-1, c.getY());
-                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
-                        this.getPacman().setScore(this.getPacman().getScore() + 1);
-                    this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                    deplacement.play();
-                    }
-                }
-                break;
-                
-                
-            case DOWN:
-                if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall()){
-                    p.setPosition(c.getX(), c.getY()+1);
-                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
-                        this.getPacman().setScore(this.getPacman().getScore() + 1);
-                    this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                    deplacement.play();
-                    }
-                }
-                break;
-            case UP:
-                if(!this.getMap().getCellules()[c.getX()][c.getY()-1].getWall()){
-                    p.setPosition(c.getX(), c.getY()-1);
-                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
-                        this.getPacman().setScore(this.getPacman().getScore() + 1);
-                    this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                    deplacement.play();
-                    }
-                }
-                break;
+        
+        //Mort de Pacman
+        if(     ((c.getX()==this.ghost1.getPosition().getX() && c.getY()==this.ghost1.getPosition().getY()) && !this.ghost1.getWeak())||
+                ((c.getX()==this.ghost2.getPosition().getX() && c.getY()==this.ghost2.getPosition().getY()) && !this.ghost2.getWeak())||
+                ((c.getX()==this.ghost3.getPosition().getX() && c.getY()==this.ghost3.getPosition().getY()) && !this.ghost3.getWeak())||
+                ((c.getX()==this.ghost4.getPosition().getX() && c.getY()==this.ghost4.getPosition().getY()) && !this.ghost4.getWeak())){
             
+            //Pacman meurt
+            p.setDead(true);
         }
+            this.getMap().getCellules()[18][12].setPassed(true);
+            this.getMap().getCellules()[19][12].setPassed(true);
+            this.getMap().getCellules()[20][12].setPassed(true);
+            this.getMap().getCellules()[21][12].setPassed(true);
+            this.getMap().getCellules()[22][12].setPassed(true);
+            this.getMap().getCellules()[19][10].setPassed(true);
+            this.getMap().getCellules()[20][10].setPassed(true);
+            this.getMap().getCellules()[21][10].setPassed(true);
+            this.getMap().getCellules()[19][9].setPassed(true);
+            this.getMap().getCellules()[20][9].setPassed(true);
+            this.getMap().getCellules()[21][9].setPassed(true);
+            switch(this.getPacman().getOrientation()){
+                case RIGHT:
+                    //si Pacman touche la bordure droite this.getMap().getWidth()-1
+                    if(c.getX()==this.getMap().getWidth()-1){
+                        //Pacman est tp devant l'autre passage
+                        p.setPosition(-1, c.getY());
+                    }
+                    if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall()){
+                        p.setPosition(c.getX()+1, c.getY());
+                        //pacman est passé par cette case
+                        if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
+                            //Ne compte pas les cases sans petits points
+                            this.getPacman().setScore(this.getPacman().getScore() + 1);
+                            this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                            deplacement.play();
+                        }
+
+                    }
+                    break;
+                case LEFT:
+                    //si Pacman touche la bordure gauche this.getMap().getWidth()-1
+                    if(c.getX()==0){
+                        //Pacman est tp devant l'autre passage
+                        p.setPosition(this.getMap().getWidth(), c.getY());
+                    }
+                    if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall()){
+                        p.setPosition(c.getX()-1, c.getY());
+                        if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
+                            this.getPacman().setScore(this.getPacman().getScore() + 1);
+                        this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                        deplacement.play();
+                        }
+                    }
+                    break;
+
+
+                case DOWN:
+                    if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall()){
+                        p.setPosition(c.getX(), c.getY()+1);
+                        if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
+                            this.getPacman().setScore(this.getPacman().getScore() + 1);
+                        this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                        deplacement.play();
+                        }
+                    }
+                    break;
+                case UP:
+                    if(!this.getMap().getCellules()[c.getX()][c.getY()-1].getWall()){
+                        p.setPosition(c.getX(), c.getY()-1);
+                        if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
+                            this.getPacman().setScore(this.getPacman().getScore() + 1);
+                        this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                        deplacement.play();
+                        }
+                    }
+                    break;
+                        }
+        
     }
     public void refresh(){
         //Mouvements Pacman

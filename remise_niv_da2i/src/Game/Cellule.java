@@ -18,16 +18,18 @@ class Cellule {
     private int x,y;
     private boolean wall;
     private boolean passed;
+    private boolean vitamined;
     
     /**
     *constructeur d'une cellule avec des coordonnées et un booléen pour le mur, initilisation du booléen passed à faux
     * @param c 
     */
-    public Cellule(int x, int y, boolean wall){
+    public Cellule(int x, int y, boolean wall,boolean vitamined){
         this.x = x;
         this.y = y;
         this.wall = wall;
         this.passed = false;
+        this.vitamined=vitamined;
     }
     /**
      * réccupère le booléen permettant de savoir s'il s'agit d'un mur
@@ -77,6 +79,20 @@ class Cellule {
      */
     public void setPassed(boolean passed){
         this.passed = passed;
+    }
+    /**
+     * Récupérer l'info de la case si il y a une vitamine ou pas
+     * @return 
+     */
+    public boolean getVitamined(){
+        return vitamined;
+    }
+    /**
+     * La case est marquée comme possédant une vitamine ou non
+     * @param vit 
+     */
+    public void setVitamined(boolean vit){
+        this.vitamined=vit;
     }
     
 }

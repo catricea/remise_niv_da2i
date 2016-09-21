@@ -83,4 +83,11 @@ class Ghost {
     public void setCountWeak(int a){
         this.countWeak = a;
     }
+    /**
+     * permet de modifier l'état du Ghost de mort ou vif
+     * @param a 
+     */
+    public void setDead(boolean a){
+        this.dead=a;
+    }
 }

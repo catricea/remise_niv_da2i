@@ -50,7 +50,7 @@ public class Main {
                 Sound debut = new Sound("sounds/pacman_beginning.wav");
                 debut.play();
                 
-                while(!d.getPacman().getDead()){
+                while(!d.getPacman().getDead() && d.getPacman().getScore() < 334){
                     d.setVisible(true);
                     d.refresh();
                     //mode texte
@@ -58,14 +58,17 @@ public class Main {
                     //mode graphique
                     d.repaint();
                     try{
-                        Thread.sleep(180);
+                        Thread.sleep(80);
                     }
                     catch(InterruptedException e){
                         e.printStackTrace();
                     }
                 }
-                JOptionPane.showMessageDialog(d, "Score : " + d.getPacman().getScore());
-
+                if(d.getPacman().getScore() == 334)
+                    JOptionPane.showMessageDialog(d, "WIN\n Score : \n " + d.getPacman().getScoreFinal());
+                else{
+                    JOptionPane.showMessageDialog(d, "GAME OVER :( \n Score : \n "+ d.getPacman().getScore());
+                }   
             }
                 
         });
