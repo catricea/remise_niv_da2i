@@ -47,10 +47,10 @@ public class Display extends JFrame implements KeyListener{
         this.ghost3 = new Ghost(new Cellule(19,10,false));
         this.ghost4 = new Ghost(new Cellule(21,10,false));
         //test
-        this.ghost1.setWeak(true);
+        /*this.ghost1.setWeak(true);
         this.ghost2.setWeak(true);
         this.ghost3.setWeak(true);
-        this.ghost4.setWeak(true);
+        this.ghost4.setWeak(true);*/
         
         
         this.getMap().initialization();
@@ -199,12 +199,6 @@ public class Display extends JFrame implements KeyListener{
                     
                     g.setPosition(c.getX()+1, c.getY());
                 }
-                //Si on passe sur une vitamine
-                //if(c.getX()== j && c.getY()==i && g.getCountWeak()==0 && !c.getPassed())
-                //positions vitamines 1 == j && 3 == i || 39 == j && 3 == i || 1 == j && 18 == i || 39 == j && 18 == i
-                //if vitamine && getGhost().getCountWeak () == 0
-                //getGhost().setCountWeak(getCountWeak+1);
-                //5sec => cpt=30
                 else{
                     Random rand = new Random();
                     int nombre = rand.nextInt(2);
@@ -284,6 +278,30 @@ public class Display extends JFrame implements KeyListener{
     }
     public void refreshPacman(Pacman p){
         Cellule c = p.getPosition();
+        //Si on passe sur une vitamine jamais mangé auparavant et que les fantômes sont dangereux
+        if((c.getX()== 1 && c.getY()==3) || (c.getX()== 39 && c.getY()==3) || (c.getX()== 1 && c.getY()==18) || (c.getX()== 39 && c.getY()==18) 
+                    && this.ghost1.getCountWeak()==0 && !c.getPassed()){
+                this.ghost1.setWeak(true);
+                this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);
+                this.ghost2.setWeak(true);
+                this.ghost2.setCountWeak(this.ghost2.getCountWeak()+1);
+                this.ghost3.setWeak(true);
+                this.ghost3.setCountWeak(this.ghost3.getCountWeak()+1);
+                this.ghost4.setWeak(true);
+                this.ghost4.setCountWeak(this.ghost4.getCountWeak()+1);
+                }
+        //getGhost().setCountWeak(getCountWeak+1);
+        //5sec => cpt=30
+        if(this.ghost1.getCountWeak()==5){
+            this.ghost1.setWeak(true);
+            this.ghost1.setCountWeak(0);
+            this.ghost2.setWeak(true);
+            this.ghost1.setCountWeak(0);
+            this.ghost3.setWeak(true);
+            this.ghost1.setCountWeak(0);
+            this.ghost4.setWeak(true);
+            this.ghost1.setCountWeak(0);
+        }
         switch(this.getPacman().getOrientation()){
             case RIGHT:
                 //si Pacman touche la bordure droite this.getMap().getWidth()-1
