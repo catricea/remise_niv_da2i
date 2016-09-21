@@ -72,13 +72,11 @@ public class Display extends JFrame implements KeyListener{
         //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
-
                 //affiche les murs
                 if(c[j][i].getWall()){
                     g.setColor( new Color(129, 159, 210));
                     g.fillRect(j*30, i*30+30, 30, 30);
-                }                
-                    
+                }                 
                 //affiche le pacman
                 else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i){
                     g.setColor(new Color(255, 224, 119));
@@ -109,7 +107,13 @@ public class Display extends JFrame implements KeyListener{
                     g.setColor(defaultColor);
                     g.fillRect(j*30, i*30+30, 30, 30);
                 }
-                
+                //affiche les vitamines
+                else if(1 == j && 3 == i || 39 == j && 3 == i || 1 == j && 18 == i || 39 == j && 18 == i){
+                    g.setColor(defaultColor);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                    g.setColor(new Color(6, 38, 225));
+                    g.fillOval(j*30+10, i*30+40, 12, 12);
+                }
                 //affiche le chemin
                 else{
                     g.setColor(defaultColor);
@@ -184,20 +188,6 @@ public class Display extends JFrame implements KeyListener{
                             break;
                     }
                 }
-                /*if(!this.getMap().getCellules()[c2.getX()+1][c2.getY()].getWall()){
-                    Random rand = new Random();
-                    int nombre = rand.nextInt(2);
-                    switch(nombre)
-                    {
-                        case 0:
-                            this.getGhost().setOrientation(Orientation.UP);
-                            break;
-                        case 1:
-                            this.getGhost().setOrientation(Orientation.DOWN);
-                            break;
-                    }
-                    
-                }*/
                 break;
             case LEFT:
                 //si Ghost touche la bordure gauche this.getMap().getWidth()-1
@@ -221,19 +211,6 @@ public class Display extends JFrame implements KeyListener{
                             break;
                     }
                 }
-                /*if(!this.getMap().getCellules()[c2.getX()-1][c2.getY()].getWall()){
-                    Random rand = new Random();
-                    int nombre = rand.nextInt(2);
-                    switch(nombre)
-                    {
-                        case 0:
-                            this.getGhost1().setOrientation(Orientation.UP);
-                            break;
-                        case 1:
-                            this.getGhost1().setOrientation(Orientation.DOWN);
-                            break;
-                    }
-                }*/
                 break;
                 
                 
@@ -272,19 +249,6 @@ public class Display extends JFrame implements KeyListener{
                             break;
                     }
                 }
-                /*if(!this.getMap().getCellules()[c2.getX()][c2.getY()-1].getWall()){
-                    Random rand = new Random();
-                    int nombre = rand.nextInt(2);
-                    switch(nombre)
-                    {
-                        case 0:
-                            this.getGhost().setOrientation(Orientation.LEFT);
-                            break;
-                        case 1:
-                            this.getGhost().setOrientation(Orientation.RIGHT);
-                            break;
-                    }
-                }*/
                 break;
         }
     }
@@ -366,16 +330,14 @@ public class Display extends JFrame implements KeyListener{
                 break;
         }
     }
-
+    
     @Override
     public void keyReleased(KeyEvent e) {
         
     }
-  
     public Map getMap(){
         return this.map;
     }
-    
     public Ghost getGhost(){
         return this.ghost1;
     }

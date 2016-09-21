@@ -65,9 +65,6 @@ public class Map {
         
         for(int i = 0; i < this.getWidth(); i++){
             for(int j = 0; j < this.getHeight(); j++){
-                //mur
-                
-                
                 if(example[j][i] == 1)
                     this.getCellules()[i][j] = new Cellule(i, j, true);
                 else
