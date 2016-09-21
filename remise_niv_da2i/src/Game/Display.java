@@ -302,6 +302,8 @@ public class Display extends JFrame implements KeyListener{
             this.ghost4.setWeak(true);
             this.ghost1.setCountWeak(0);
         }
+        Sound deplacement = new Sound("sounds/pacman_chomp.wav");
+
         switch(this.getPacman().getOrientation()){
             case RIGHT:
                 //si Pacman touche la bordure droite this.getMap().getWidth()-1
@@ -312,9 +314,11 @@ public class Display extends JFrame implements KeyListener{
                 if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall()){
                     p.setPosition(c.getX()+1, c.getY());
                     //pacmman est passé par cette case
-                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed())
+                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                         this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                    }
+                    deplacement.play();
                 }
                 break;
             case LEFT:
@@ -325,9 +329,11 @@ public class Display extends JFrame implements KeyListener{
                 }
                 if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall()){
                     p.setPosition(c.getX()-1, c.getY());
-                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed())
+                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                         this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                    }
+                    deplacement.play();
                 }
                 break;
                 
@@ -335,17 +341,21 @@ public class Display extends JFrame implements KeyListener{
             case DOWN:
                 if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall()){
                     p.setPosition(c.getX(), c.getY()+1);
-                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed())
+                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                         this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                    }
+                    deplacement.play();
                 }
                 break;
             case UP:
                 if(!this.getMap().getCellules()[c.getX()][c.getY()-1].getWall()){
                     p.setPosition(c.getX(), c.getY()-1);
-                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed())
+                    if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                         this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                    }
+                    deplacement.play();
                 }
                 break;
             
