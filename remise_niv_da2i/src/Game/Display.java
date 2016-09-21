@@ -183,6 +183,7 @@ public class Display extends JFrame implements KeyListener{
                 System.out.print(".");
             }
             System.out.print("\n");
+            //System.out.println(this.ghost1.getCountWeak());
         }     
     }
     public void refreshGhost(Ghost g){
@@ -290,16 +291,22 @@ public class Display extends JFrame implements KeyListener{
                 this.ghost4.setWeak(true);
                 this.ghost4.setCountWeak(this.ghost4.getCountWeak()+1);
                 }
+        if(this.ghost1.getCountWeak()>0){
+            this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);
+            this.ghost2.setCountWeak(this.ghost2.getCountWeak()+1);
+            this.ghost3.setCountWeak(this.ghost3.getCountWeak()+1);
+            this.ghost4.setCountWeak(this.ghost4.getCountWeak()+1);
+        }
         //getGhost().setCountWeak(getCountWeak+1);
         //5sec => cpt=30
-        if(this.ghost1.getCountWeak()==5){
-            this.ghost1.setWeak(true);
+        if(this.ghost1.getCountWeak()==30){
+            this.ghost1.setWeak(false);
             this.ghost1.setCountWeak(0);
-            this.ghost2.setWeak(true);
+            this.ghost2.setWeak(false);
             this.ghost1.setCountWeak(0);
-            this.ghost3.setWeak(true);
+            this.ghost3.setWeak(false);
             this.ghost1.setCountWeak(0);
-            this.ghost4.setWeak(true);
+            this.ghost4.setWeak(false);
             this.ghost1.setCountWeak(0);
         }
         Sound deplacement = new Sound("sounds/pacman_chomp.wav");
@@ -317,8 +324,9 @@ public class Display extends JFrame implements KeyListener{
                     if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                         this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                    }
                     deplacement.play();
+                    }
+                    
                 }
                 break;
             case LEFT:
@@ -332,8 +340,8 @@ public class Display extends JFrame implements KeyListener{
                     if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                         this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                    }
                     deplacement.play();
+                    }
                 }
                 break;
                 
@@ -344,8 +352,8 @@ public class Display extends JFrame implements KeyListener{
                     if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                         this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                    }
                     deplacement.play();
+                    }
                 }
                 break;
             case UP:
@@ -354,8 +362,8 @@ public class Display extends JFrame implements KeyListener{
                     if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                         this.getPacman().setScore(this.getPacman().getScore() + 1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                    }
                     deplacement.play();
+                    }
                 }
                 break;
             
