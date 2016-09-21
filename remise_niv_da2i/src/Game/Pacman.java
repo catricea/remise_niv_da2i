@@ -18,6 +18,7 @@ class Pacman {
     
     private Cellule position;
     private boolean dead;
+    private int score;
     private Orientation orientation;
     /**
     *constructeur du pacman avec une position sur le plateau et initilisation de son orientation vers le haut
@@ -26,6 +27,7 @@ class Pacman {
     public Pacman(Cellule c){
         this.position = c;
         this.dead = false;
+        this.score = 0;
         this.orientation = Orientation.UP;
     }
     /**
@@ -41,6 +43,13 @@ class Pacman {
     */
     public Cellule getPosition(){
         return this.position;
+    }
+    /**
+    * réccupère le score du joueur
+    * @return score
+    */
+    public int getScore(){
+        return this.score;
     }
     /**
     * réccupère l'orientation de pacman
@@ -64,6 +73,13 @@ class Pacman {
      */
     public void setOrientation(Orientation orientation){
         this.orientation = orientation;
+    }
+    /**
+     * permet de modifier le score du joueur
+     * @param score
+     */
+    public void setScore(int score){
+        this.score = score;
     }
     
 }
