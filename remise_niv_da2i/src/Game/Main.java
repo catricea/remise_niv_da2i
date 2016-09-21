@@ -9,6 +9,7 @@ package Game;
 import java.awt.EventQueue;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -47,21 +48,22 @@ public class Main {
             public void run(){
                 Display d = new Display(41, 21, 20, 12);
                
-                    while(true){
-                        d.setVisible(true);
-                        d.refresh();
-                        //mode texte
-                        //d.displayMap();
-                        //mode graphique
-                        d.repaint();
-                        try{
+                while(!d.getPacman().getDead()){
+                    d.setVisible(true);
+                    d.refresh();
+                    //mode texte
+                    //d.displayMap();
+                    //mode graphique
+                    d.repaint();
+                    try{
                         Thread.sleep(180);
-                        }catch(InterruptedException e){
-                    e.printStackTrace();
+                    }
+                    catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
                 }
-                    
-                }
-                
+                JOptionPane.showMessageDialog(d, "Score : " + d.getPacman().getScore());
+
             }
                 
         });
