@@ -47,7 +47,9 @@ public class Main {
        Thread thread = new Thread(new Runnable(){
             public void run(){
                 Display d = new Display(41, 21, 20, 12);
-               
+                Sound debut = new Sound("sounds/pacman_beginning.wav");
+                debut.play();
+                
                 while(!d.getPacman().getDead()){
                     d.setVisible(true);
                     d.refresh();
