@@ -254,19 +254,6 @@ public class Display extends JFrame implements KeyListener{
                             break;
                     }
                 }
-                /*if(!this.getMap().getCellules()[c2.getX()][c2.getY()+1].getWall()){
-                    Random rand = new Random();
-                    int nombre = rand.nextInt(2);
-                    switch(nombre)
-                    {
-                        case 0:
-                            this.getGhost1().setOrientation(Orientation.LEFT);
-                            break;
-                        case 1:
-                            this.getGhost1().setOrientation(Orientation.RIGHT);
-                            break;
-                    }
-                }*/
                 break;
             case UP:
                 if(!this.getMap().getCellules()[c.getX()][c.getY()-1].getWall()){
@@ -301,32 +288,29 @@ public class Display extends JFrame implements KeyListener{
                 break;
         }
     }
-    
-    public void refresh(){
-        // Pacman mouvements
-        Cellule c = this.getPacman().getPosition();
+    public void refreshPacman(Pacman p){
+        Cellule c = p.getPosition();
         switch(this.getPacman().getOrientation()){
             case RIGHT:
                 //si Pacman touche la bordure droite this.getMap().getWidth()-1
-                if(this.getPacman().getPosition().getX()==this.getMap().getWidth()-1){
+                if(c.getX()==this.getMap().getWidth()-1){
                     //Pacman est tp devant l'autre passage
-                    this.getPacman().setPosition(-1, this.getPacman().getPosition().getY());
+                    p.setPosition(-1, c.getY());
                 }
                 if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall()){
-                    
-                    this.getPacman().setPosition(this.getPacman().getPosition().getX()+1, this.getPacman().getPosition().getY());
+                    p.setPosition(c.getX()+1, c.getY());
                     //pacmman est passé par cette case
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
                 break;
             case LEFT:
                 //si Pacman touche la bordure gauche this.getMap().getWidth()-1
-                if(this.getPacman().getPosition().getX()==0){
+                if(c.getX()==0){
                     //Pacman est tp devant l'autre passage
-                    this.getPacman().setPosition(this.getMap().getWidth(), this.getPacman().getPosition().getY());
+                    p.setPosition(this.getMap().getWidth(), c.getY());
                 }
                 if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall()){
-                    this.getPacman().setPosition(this.getPacman().getPosition().getX()-1, this.getPacman().getPosition().getY());
+                    p.setPosition(c.getX()-1, c.getY());
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
                 break;
@@ -334,18 +318,22 @@ public class Display extends JFrame implements KeyListener{
                 
             case DOWN:
                 if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall()){
-                    this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()+1);
-                      this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
+                    p.setPosition(c.getX(), c.getY()+1);
+                    this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
                 break;
             case UP:
                 if(!this.getMap().getCellules()[c.getX()][c.getY()-1].getWall()){
-                    this.getPacman().setPosition(this.getPacman().getPosition().getX(), this.getPacman().getPosition().getY()-1);
+                    p.setPosition(c.getX(), c.getY()-1);
                     this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
                 }
                 break;
             
         }
+    }
+    public void refresh(){
+        //Mouvements Pacman
+        this.refreshPacman(pacman);
         //Mouvements Ghost
         this.refreshGhost(ghost1);
         this.refreshGhost(ghost2);
