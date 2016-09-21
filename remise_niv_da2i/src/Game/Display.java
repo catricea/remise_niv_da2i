@@ -191,6 +191,22 @@ public class Display extends JFrame implements KeyListener{
         }     
     }
     public void refreshGhost(Ghost g){
+        
+        //Cellule cp = this.getPacman().getPosition();
+        //Cellule cg = g.getPosition();
+        //int x = cg.getX() - cp.getX();
+        //int y = cg.getY() - cp.getY();
+        //if(x > 0 && x > y)
+        //RIGHT
+        //if(x < 0 && x > y)
+        //LEFT
+        //if(y > 0 && y > x)
+        //UP
+        //if(y < 0 && y > x)
+        //DOWN
+        
+        
+        
         //Ghost Mouvements
         Cellule c = g.getPosition();
         //Permet aux fantômes de sortir de leur maison et de ne pas y rerentrer
