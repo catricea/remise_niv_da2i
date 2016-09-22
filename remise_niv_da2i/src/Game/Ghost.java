@@ -10,7 +10,9 @@ package Game;
  * @author lamarqux
  * elle définit l'objet Fantôme
  * elle contient une cellule pour sa position sur le plateau, 
- * son orientation aléatoire
+ * son orientation,
+ * un booléen pour savoir s'il est faible ou non,
+ * un compteur qui définit le temps de faiblesse du fantôme
  * et un booléen qui s'il est mort ou non.
  */
 class Ghost {
@@ -20,7 +22,8 @@ class Ghost {
     private boolean weak;
     private int countWeak;
     /**
-    *constructeur du fantôme avec une position sur le plateau et initilisation de son orientation vers le haut
+    *constructeur du fantôme avec une position sur le plateau
+    * initilisation de son orientation vers le haut
     * @param c 
     */
     public Ghost(Cellule c){
