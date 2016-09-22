@@ -53,7 +53,7 @@ public class Display extends JFrame implements KeyListener{
         this.setVisible(true);
     }
     /**
-     * 
+     * affiche la fenêtre du jeu en mode graphique
      * @param graphics
      */
     public void paint(Graphics g){
@@ -180,6 +180,11 @@ public class Display extends JFrame implements KeyListener{
             System.out.print("\n");
         }     
     }
+    
+    /**
+     * gère les déplacements des fantômes sur le plateau
+     * @param g 
+     */
     public void refreshGhost(Ghost g){
         
         //Idée de path finding :
@@ -315,8 +320,16 @@ public class Display extends JFrame implements KeyListener{
                 break;
         }
     }
+    
+    /**
+     * gère les déplacements du pacman sur le plateau
+     * @param p 
+     */
     public void refreshPacman(Pacman p){
         Cellule c = p.getPosition();
+        Sound deplacement = new Sound("sounds/sirene.wav");
+        Sound mange = new Sound("sounds/mange.wav");
+        Sound mort = new Sound("sounds/mort.wav");
         //Si on passe sur une vitamine jamais mangé auparavant et que les fantômes sont dangereux
         if(this.ghost1.getCountWeak()==0 || this.ghost2.getCountWeak()==0 || this.ghost3.getCountWeak()==0 || this.ghost4.getCountWeak()==0){
             //Si Pacman n'est pas passé sur cette cellule
@@ -373,14 +386,16 @@ public class Display extends JFrame implements KeyListener{
                 this.ghost4.setWeak(true);
             }
         }
-        Sound deplacement = new Sound("sounds/pacman_chomp.wav");
+        
         //Mort de Pacman
         if(     ((c.getX()==this.ghost1.getPosition().getX() && c.getY()==this.ghost1.getPosition().getY()) && !this.ghost1.getWeak())||
                 ((c.getX()==this.ghost2.getPosition().getX() && c.getY()==this.ghost2.getPosition().getY()) && !this.ghost2.getWeak())||
                 ((c.getX()==this.ghost3.getPosition().getX() && c.getY()==this.ghost3.getPosition().getY()) && !this.ghost3.getWeak())||
                 ((c.getX()==this.ghost4.getPosition().getX() && c.getY()==this.ghost4.getPosition().getY()) && !this.ghost4.getWeak())){
             //Pacman meurt
+            mort.play();
             p.setDead(true);
+            
         }
             //Cases sans petits points
             this.getMap().getCellules()[18][12].setPassed(true);
@@ -403,12 +418,13 @@ public class Display extends JFrame implements KeyListener{
                     }
                     if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall()){
                         p.setPosition(c.getX()+1, c.getY());
+                        deplacement.play();
                         //pacman est passé par cette case
                         if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                             //Ne compte pas les cases sans petits points
                             this.getPacman().setScore(this.getPacman().getScore() + 1);
                             this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                            deplacement.play();
+                            mange.play();
                         }
 
                     }
@@ -421,10 +437,11 @@ public class Display extends JFrame implements KeyListener{
                     }
                     if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall()){
                         p.setPosition(c.getX()-1, c.getY());
+                        deplacement.play();
                         if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                             this.getPacman().setScore(this.getPacman().getScore() + 1);
                         this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                        deplacement.play();
+                        mange.play();
                         }
                     }
                     break;
@@ -433,26 +450,31 @@ public class Display extends JFrame implements KeyListener{
                 case DOWN:
                     if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall()){
                         p.setPosition(c.getX(), c.getY()+1);
+                        deplacement.play();
                         if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                             this.getPacman().setScore(this.getPacman().getScore() + 1);
                         this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                        deplacement.play();
+                        mange.play();
                         }
                     }
                     break;
                 case UP:
                     if(!this.getMap().getCellules()[c.getX()][c.getY()-1].getWall()){
                         p.setPosition(c.getX(), c.getY()-1);
+                        deplacement.play();
                         if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                             this.getPacman().setScore(this.getPacman().getScore() + 1);
                         this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                        deplacement.play();
+                        mange.play();
                         }
                     }
                     break;
                         }
         
     }
+    /**
+     * modifie les déplacements des objets sur le plateau
+     */
     public void refresh(){
         //Mouvements Pacman
         this.refreshPacman(pacman);
@@ -469,6 +491,10 @@ public class Display extends JFrame implements KeyListener{
         
     }
 
+    /**
+     * permet d'enregistrer la saisie utilisateur pour les déplacements du pacman
+     * @param e 
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         

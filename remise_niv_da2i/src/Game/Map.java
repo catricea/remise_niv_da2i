@@ -8,9 +8,6 @@ package Game;
 
 import java.util.Random;
 
-/**
- * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice
- */
 
 //git sous netbeans :
 //ajouter un fichier vers git
@@ -35,7 +32,7 @@ public class Map {
         this.height = height;
     }
     /**
-     * initialise le plateau avec des murs aléatoirement
+     * initialise le plateau avec des murs aléatoirement (1) et des vitamines (2)
      */
     public void initialization(){
         
@@ -62,7 +59,7 @@ public class Map {
                           {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
                           {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}};
         
-        
+        //associe chaque int du tableau 'example' aux cellules du plateau
         for(int i = 0; i < this.getWidth(); i++){
             for(int j = 0; j < this.getHeight(); j++){
                 switch(example[j][i]){
@@ -70,7 +67,7 @@ public class Map {
                         this.getCellules()[i][j] = new Cellule(i, j, false,false);
                     break;
                     case 1:
-                        this.getCellules()[i][j] = new Cellule(i, j, true,false);
+                        this.getCellules()[i][j] = new Cellule(i, j, true, false);
                     break;
                     case 2:
                         this.getCellules()[i][j] = new Cellule(i, j, false,true);

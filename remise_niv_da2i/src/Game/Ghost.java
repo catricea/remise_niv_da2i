@@ -10,7 +10,9 @@ package Game;
  * @author lamarqux
  * elle définit l'objet Fantôme
  * elle contient une cellule pour sa position sur le plateau, 
- * son orientation aléatoire
+ * son orientation,
+ * un booléen pour savoir s'il est faible ou non,
+ * un compteur qui définit le temps de faiblesse du fantôme
  * et un booléen qui s'il est mort ou non.
  */
 class Ghost {
@@ -20,7 +22,8 @@ class Ghost {
     private boolean weak;
     private int countWeak;
     /**
-    *constructeur du fantôme avec une position sur le plateau et initilisation de son orientation vers le haut
+    *constructeur du fantôme avec une position sur le plateau
+    * initilisation de son orientation vers le haut
     * @param c 
     */
     public Ghost(Cellule c){
@@ -31,7 +34,7 @@ class Ghost {
         this.countWeak = 0;
     }
     /**
-    * réccupère le boolean permettant de savoir si le fantôme est mort ou non
+    * récupère le boolean permettant de savoir si le fantôme est mort ou non
     * @return dead
     */
     public boolean getDead(){
@@ -45,14 +48,14 @@ class Ghost {
         return this.weak;
     }
     /**
-    * réccupère la position du fantôme sur le plateau
+    * récupère la position du fantôme sur le plateau
     * @return position
     */
     public Cellule getPosition(){
         return this.position;
     }
     /**
-    * réccupère l'orientation du fantôme
+    * récupère l'orientation du fantôme
     * @return orientation
     */
     public Orientation getOrientation(){
@@ -74,12 +77,24 @@ class Ghost {
     public void setOrientation(Orientation orientation){
         this.orientation = orientation;
     }
+    /**
+    * permet de modifier le booléen 'faiblesse' du fantôme
+    * @param a 
+    */
     public void setWeak(boolean a){
-        this.weak=a;
+        this.weak = a;
     }
+    /**
+    * récupère le compteur 'faiblesse' du fantôme
+    * @param a 
+    */
     public int getCountWeak(){
         return countWeak;
     }
+    /**
+    * modifie le compteur 'faiblesse' du fantôme
+    * @param a 
+    */
     public void setCountWeak(int a){
         this.countWeak = a;
     }

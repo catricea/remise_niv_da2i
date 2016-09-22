@@ -34,6 +34,10 @@ import javax.swing.JOptionPane;
 //modifer un fichier vers git :
 //juste pas de add
  
+/**
+ * classe principale pour le lancement du jeu
+ * @author catricea
+ */
 public class Main {
     
 /**
