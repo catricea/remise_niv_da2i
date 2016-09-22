@@ -29,7 +29,7 @@ class Cellule {
         this.y = y;
         this.wall = wall;
         this.passed = false;
-        this.vitamined=vitamined;
+        this.vitamined = vitamined;
     }
     /**
      * réccupère le booléen permettant de savoir s'il s'agit d'un mur

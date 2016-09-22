@@ -48,7 +48,7 @@ public class Display extends JFrame implements KeyListener{
         this.addKeyListener(this);
         //Frame
         this.setTitle("PacMan");
-        this.setSize(1280,720);
+        this.setSize(1231,690);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
@@ -58,10 +58,8 @@ public class Display extends JFrame implements KeyListener{
      */
     public void paint(Graphics g){
         Color defaultColor = this.getBackground();
-        
         //réccupère un tableau de cellule
         Cellule[][] c = this.getMap().getCellules();
-        
         //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
@@ -77,8 +75,6 @@ public class Display extends JFrame implements KeyListener{
                 }
                 //affiche le ghost rouge
                 else if(this.getGhost().getPosition().getX() == j && getGhost().getPosition().getY() == i && !this.getGhost().getWeak()){
-                    //if getweak()
-                    //setColor
                     g.setColor(new Color(240, 6, 6));
                     g.fillOval(j*30+5, i*30+35, 20, 20);
                 }
@@ -123,13 +119,13 @@ public class Display extends JFrame implements KeyListener{
                     g.fillRect(j*30, i*30+30, 30, 30);
                 }
                 //affiche les vitamines
-                else if(1 == j && 3 == i || 39 == j && 3 == i || 1 == j && 18 == i || 39 == j && 18 == i){
+                else if(c[j][i].getVitamined()){
                     g.setColor(defaultColor);
                     g.fillRect(j*30, i*30+30, 30, 30);
                     g.setColor(new Color(6, 38, 225));
                     g.fillOval(j*30+10, i*30+40, 12, 12);
                 }
-                //retire des points aux endroits voulus, comme au mileu
+                //retire des points aux endroits voulus, comme au milieu
                 else if(21 == j & 10 == i || 19 == j && 10 == i || 20 == j && 10 == i || 21 == j & 9 == i || 19 == j && 9 == i || 20 == j && 9 == i
                         || 20==j & 8==i || 18==j & 12==i || 19==j & 12==i || 20==j & 12==i || 21==j & 12==i || 22==j & 12==i){
                     g.setColor(defaultColor);
@@ -152,8 +148,7 @@ public class Display extends JFrame implements KeyListener{
     public void displayMap(){
         
         Cellule[][] c = this.getMap().getCellules();
-        System.out.println(this.getPacman().getOrientation());
-        
+        System.out.println("en bas a gauche vitamine ? : " + this.map.getCellules()[1][18].getVitamined());
         //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
@@ -182,6 +177,7 @@ public class Display extends JFrame implements KeyListener{
     }
     public void refreshGhost(Ghost g){
         
+        //Idée de path finding :
         //Cellule cp = this.getPacman().getPosition();
         //Cellule cg = g.getPosition();
         //int x = cg.getX() - cp.getX();
@@ -194,8 +190,6 @@ public class Display extends JFrame implements KeyListener{
         //UP
         //if(y < 0 && y > x)
         //DOWN
-        
-        
         
         //Ghost Mouvements
         Cellule c = g.getPosition();
@@ -216,16 +210,20 @@ public class Display extends JFrame implements KeyListener{
                             break;
                     }
         }
+        //Lance le compteur
+        if(g.getCountWeak()>0)
+            g.setCountWeak(g.getCountWeak()+1);
         //Tue le fantôme si il est mangé et fait réapparaitre le fantôme si il est mangé
         if(c.getX()==this.pacman.getPosition().getX() && c.getY()==this.pacman.getPosition().getY() && g.getWeak()){
             this.pacman.setGhostScore(this.pacman.getGhostScore()+100);
-            g.setPosition(21,11);
+            g.setPosition(20,11);
         }
         //5sec => cpt=30
         if(g.getCountWeak()==30){
             g.setWeak(false);
             g.setCountWeak(0);
         }
+        //Path finding des ghost basique
         switch(g.getOrientation()){
             case RIGHT:
                 //si Ghost touche la bordure droite this.getMap().getWidth()-1
@@ -274,8 +272,6 @@ public class Display extends JFrame implements KeyListener{
                     }
                 }
                 break;
-                
-                
             case DOWN:
                 if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall()){
                     g.setPosition(c.getX(), c.getY()+1);
@@ -317,36 +313,70 @@ public class Display extends JFrame implements KeyListener{
     public void refreshPacman(Pacman p){
         Cellule c = p.getPosition();
         //Si on passe sur une vitamine jamais mangé auparavant et que les fantômes sont dangereux
-        if((c.getX()== 1 && c.getY()==3) || (c.getX()== 39 && c.getY()==3) || (c.getX()== 1 && c.getY()==18) || (c.getX()== 39 && c.getY()==18) 
-                    && this.ghost1.getCountWeak()==0 && c.getVitamined()){
-                this.ghost1.setWeak(true);
-                this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);
-                this.ghost2.setWeak(true);
+        if(this.ghost1.getCountWeak()==0 || this.ghost2.getCountWeak()==0 || this.ghost3.getCountWeak()==0 || this.ghost4.getCountWeak()==0){
+            if((!c.getPassed()) && (c.getX()== 1 && c.getY()==3)){
+                //La position de la vitamine ne pourra plus donner des forces à Pacman
+                this.map.getCellules()[1][3].setVitamined(false);
+                c.setPassed(true);
+                this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);  
                 this.ghost2.setCountWeak(this.ghost2.getCountWeak()+1);
-                this.ghost3.setWeak(true);
                 this.ghost3.setCountWeak(this.ghost3.getCountWeak()+1);
-                this.ghost4.setWeak(true);
                 this.ghost4.setCountWeak(this.ghost4.getCountWeak()+1);
-                c.setVitamined(false);
-                }
-        if(this.ghost1.getCountWeak()>0){
-            this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);
-            this.ghost2.setCountWeak(this.ghost2.getCountWeak()+1);
-            this.ghost3.setCountWeak(this.ghost3.getCountWeak()+1);
-            this.ghost4.setCountWeak(this.ghost4.getCountWeak()+1);
+                this.ghost1.setWeak(true);
+                this.ghost2.setWeak(true);
+                this.ghost3.setWeak(true);
+                this.ghost4.setWeak(true);
+            }
+            if((!c.getPassed()) && (c.getX()== 1 && c.getY()==18)){
+                //La position de la vitamine ne pourra plus donner des forces à Pacman
+                this.map.getCellules()[1][18].setVitamined(false);
+                c.setPassed(true);
+                this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);  
+                this.ghost2.setCountWeak(this.ghost2.getCountWeak()+1);
+                this.ghost3.setCountWeak(this.ghost3.getCountWeak()+1);
+                this.ghost4.setCountWeak(this.ghost4.getCountWeak()+1);
+                this.ghost1.setWeak(true);
+                this.ghost2.setWeak(true);
+                this.ghost3.setWeak(true);
+                this.ghost4.setWeak(true);
+            }
+            if((!c.getPassed()) && (c.getX()== 39 && c.getY()==3)){
+                //La position de la vitamine ne pourra plus donner des forces à Pacman
+                c.setPassed(true);
+                this.map.getCellules()[39][3].setVitamined(false);
+                this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);  
+                this.ghost2.setCountWeak(this.ghost2.getCountWeak()+1);
+                this.ghost3.setCountWeak(this.ghost3.getCountWeak()+1);
+                this.ghost4.setCountWeak(this.ghost4.getCountWeak()+1);
+                this.ghost1.setWeak(true);
+                this.ghost2.setWeak(true);
+                this.ghost3.setWeak(true);
+                this.ghost4.setWeak(true);
+            }
+            if((!c.getPassed()) && (c.getX()== 39 && c.getY()==18)){
+                //La position de la vitamine ne pourra plus donner des forces à Pacman
+                c.setPassed(true);
+                this.map.getCellules()[39][18].setVitamined(false);
+                this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);  
+                this.ghost2.setCountWeak(this.ghost2.getCountWeak()+1);
+                this.ghost3.setCountWeak(this.ghost3.getCountWeak()+1);
+                this.ghost4.setCountWeak(this.ghost4.getCountWeak()+1);
+                this.ghost1.setWeak(true);
+                this.ghost2.setWeak(true);
+                this.ghost3.setWeak(true);
+                this.ghost4.setWeak(true);
+            }
         }
-        
         Sound deplacement = new Sound("sounds/pacman_chomp.wav");
-        
         //Mort de Pacman
         if(     ((c.getX()==this.ghost1.getPosition().getX() && c.getY()==this.ghost1.getPosition().getY()) && !this.ghost1.getWeak())||
                 ((c.getX()==this.ghost2.getPosition().getX() && c.getY()==this.ghost2.getPosition().getY()) && !this.ghost2.getWeak())||
                 ((c.getX()==this.ghost3.getPosition().getX() && c.getY()==this.ghost3.getPosition().getY()) && !this.ghost3.getWeak())||
                 ((c.getX()==this.ghost4.getPosition().getX() && c.getY()==this.ghost4.getPosition().getY()) && !this.ghost4.getWeak())){
-            
             //Pacman meurt
             p.setDead(true);
         }
+            //Cases sans petits points
             this.getMap().getCellules()[18][12].setPassed(true);
             this.getMap().getCellules()[19][12].setPassed(true);
             this.getMap().getCellules()[20][12].setPassed(true);

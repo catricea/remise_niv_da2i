@@ -48,9 +48,9 @@ public class Map {
                           {1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1},
                           {1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1},
                           {1,0,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,0,1},
-                          {1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,1,2,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1},
-                          {1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,2,2,2,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1},
-                          {1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,2,2,2,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1},
+                          {1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1},
+                          {1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1},
+                          {1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,1,0,0,0,1,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1},
                           {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
                           {1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1},
                           {1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1},
@@ -65,13 +65,16 @@ public class Map {
         
         for(int i = 0; i < this.getWidth(); i++){
             for(int j = 0; j < this.getHeight(); j++){
-                if(example[j][i] == 1)
-                    this.getCellules()[i][j] = new Cellule(i, j, true,false);
-                else{
-                    if(example[j][i] == 2){
-                    this.getCellules()[i][j] = new Cellule(i, j, false,true);
-                    }
-                    this.getCellules()[i][j] = new Cellule(i, j, false,false);
+                switch(example[j][i]){
+                    case 0:
+                        this.getCellules()[i][j] = new Cellule(i, j, false,false);
+                    break;
+                    case 1:
+                        this.getCellules()[i][j] = new Cellule(i, j, true,false);
+                    break;
+                    case 2:
+                        this.getCellules()[i][j] = new Cellule(i, j, false,true);
+                    break;
                 }
             }
         }
@@ -79,21 +82,21 @@ public class Map {
     }
     
     /**
-     * réccupère le tableau de cellules du plateau
+     * récupère le tableau de cellules du plateau
      * @return celulles
      */
     public Cellule[][] getCellules(){
         return this.cellules;
     }
     /**
-     * réccupère la largeur du plateau
+     * récupère la largeur du plateau
      * @return width
      */
     public int getWidth(){
         return this.width;
     }
     /**
-     * réccupère la hauteur du plateau
+     * récupère la hauteur du plateau
      * @return height
      */
     public int getHeight(){

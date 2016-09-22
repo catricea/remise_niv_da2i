@@ -55,7 +55,7 @@ public class Main {
                     //mode graphique
                     d.repaint();
                     try{
-                        Thread.sleep(80);
+                        Thread.sleep(100);
                     }
                     catch(InterruptedException e){
                         e.printStackTrace();
