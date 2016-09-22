@@ -53,7 +53,7 @@ public class Display extends JFrame implements KeyListener{
         this.setVisible(true);
     }
     /**
-     * 
+     * affiche la fenêtre du jeu en mode graphique
      * @param graphics
      */
     public void paint(Graphics g){
@@ -175,6 +175,11 @@ public class Display extends JFrame implements KeyListener{
             System.out.print("\n");
         }     
     }
+    
+    /**
+     * gère les déplacements des fantômes sur le plateau
+     * @param g 
+     */
     public void refreshGhost(Ghost g){
         
         //Idée de path finding :
@@ -310,6 +315,11 @@ public class Display extends JFrame implements KeyListener{
                 break;
         }
     }
+    
+    /**
+     * gère les déplacements du pacman sur le plateau
+     * @param p 
+     */
     public void refreshPacman(Pacman p){
         Cellule c = p.getPosition();
         //Si on passe sur une vitamine jamais mangé auparavant et que les fantômes sont dangereux
@@ -447,6 +457,9 @@ public class Display extends JFrame implements KeyListener{
                         }
         
     }
+    /**
+     * modifie les déplacements des objets sur le plateau
+     */
     public void refresh(){
         //Mouvements Pacman
         this.refreshPacman(pacman);
@@ -463,6 +476,10 @@ public class Display extends JFrame implements KeyListener{
         
     }
 
+    /**
+     * permet d'enregistrer la saisie utilisateur pour les déplacements du pacman
+     * @param e 
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         
