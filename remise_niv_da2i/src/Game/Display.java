@@ -12,8 +12,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-
 /**
  * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice
  */
@@ -35,7 +33,7 @@ public class Display extends JFrame implements KeyListener{
     private Ghost ghost4;
 
     /**
-     * construit un affichage avec un plateau et un pacman
+     * construit un affichage avec un plateau, un pacman et des fantômes
      * @param widthMap, heightMap, XPacman, YPacman
      */
     public Display(int widthMap, int heightMap, int XPacman, int YPacman){
@@ -46,16 +44,8 @@ public class Display extends JFrame implements KeyListener{
         this.ghost2 = new Ghost(new Cellule(19,11,false,false));
         this.ghost3 = new Ghost(new Cellule(19,10,false,false));
         this.ghost4 = new Ghost(new Cellule(21,10,false,false));
-        //test
-        /*this.ghost1.setWeak(true);
-        this.ghost2.setWeak(true);
-        this.ghost3.setWeak(true);
-        this.ghost4.setWeak(true);*/
-        
-        
         this.getMap().initialization();
         this.addKeyListener(this);
-        
         //Frame
         this.setTitle("PacMan");
         this.setSize(1280,720);

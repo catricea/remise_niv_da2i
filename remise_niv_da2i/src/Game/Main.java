@@ -6,9 +6,6 @@
 
 package Game;
 
-import java.awt.EventQueue;
-import java.util.Timer;
-import java.util.TimerTask;
 import javax.swing.JOptionPane;
 
 
