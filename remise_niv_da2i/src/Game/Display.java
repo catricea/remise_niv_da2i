@@ -322,6 +322,9 @@ public class Display extends JFrame implements KeyListener{
      */
     public void refreshPacman(Pacman p){
         Cellule c = p.getPosition();
+        Sound deplacement = new Sound("sounds/sirene.wav");
+        Sound mange = new Sound("sounds/mange.wav");
+        Sound mort = new Sound("sounds/mort.wav");
         //Si on passe sur une vitamine jamais mangé auparavant et que les fantômes sont dangereux
         if(this.ghost1.getCountWeak()==0 || this.ghost2.getCountWeak()==0 || this.ghost3.getCountWeak()==0 || this.ghost4.getCountWeak()==0){
             if((!c.getPassed()) && (c.getX()== 1 && c.getY()==3)){
@@ -377,9 +380,7 @@ public class Display extends JFrame implements KeyListener{
                 this.ghost4.setWeak(true);
             }
         }
-        Sound deplacement = new Sound("sounds/sirene.wav");
-        Sound mange = new Sound("sounds/mange.wav");
-        Sound mort = new Sound("sounds/mort.wav");
+        
         //Mort de Pacman
         if(     ((c.getX()==this.ghost1.getPosition().getX() && c.getY()==this.ghost1.getPosition().getY()) && !this.ghost1.getWeak())||
                 ((c.getX()==this.ghost2.getPosition().getX() && c.getY()==this.ghost2.getPosition().getY()) && !this.ghost2.getWeak())||
