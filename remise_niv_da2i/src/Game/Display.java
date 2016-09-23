@@ -107,8 +107,6 @@ public class Display extends JFrame implements KeyListener{
             for(int j = 0; j < this.getMap().getWidth(); j++){
                 //affiche les murs
                 if(c[j][i].getWall()){
-                    g.setColor( new Color(11, 4, 200));
-                    g.fillRect(j*30, i*30+30, 30, 30);
                     g.drawImage(IWall,j*30,i*30+30,this);
                 }                 
                 //affiche le pacman

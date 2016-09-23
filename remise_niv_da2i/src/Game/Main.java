@@ -59,7 +59,7 @@ public class Main {
                     //mode graphique
                     d.repaint();
                     try{
-                        Thread.sleep(100);
+                        Thread.sleep(125);
                     }
                     catch(InterruptedException e){
                         e.printStackTrace();
@@ -68,7 +68,7 @@ public class Main {
                 if(d.getPacman().getScore() == 334)
                     JOptionPane.showMessageDialog(d, "WIN\n Score : \n " + d.getPacman().getScoreFinal());
                 else{
-                    JOptionPane.showMessageDialog(d, "GAME OVER :( \n Score : \n "+ d.getPacman().getScore());
+                    JOptionPane.showMessageDialog(d, "GAME OVER :( \n Score : \n "+ d.getPacman().getScoreFinal());
                 }   
             }
                 
