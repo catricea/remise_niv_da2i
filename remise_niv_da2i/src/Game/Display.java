@@ -205,10 +205,6 @@ public class Display extends JFrame implements KeyListener{
     public void displayMap(){
         
         Cellule[][] c = this.getMap().getCellules();
-        System.out.println("en bas a gauche vitamine ? : " + this.map.getCellules()[1][18].getVitamined());
-        System.out.println("en bas a droite vitamine ? : " + this.map.getCellules()[39][18].getVitamined());
-        System.out.println("en haut a gauche vitamine ? : " + this.map.getCellules()[1][3].getVitamined());
-        System.out.println("en haut a droite vitamine ? : " + this.map.getCellules()[39][3].getVitamined());
         //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
@@ -360,8 +356,562 @@ public class Display extends JFrame implements KeyListener{
                 }
                 break;
         }
+        //Path finding des ghosts intersections pour qu'ils aillent partout
+        switch(g.getPosition().getY()){
+            case 1:
+                if(g.getPosition().getX()==10){
+                    
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==30){
+                    
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+                break;
+            case 4:
+                if(g.getPosition().getX()==1){
+                    
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==10){
+                    
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(4);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                        case 3:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==17){
+                    
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==19){
+                    
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==21){
+                    
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==23){
+                    
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==30){
+                    
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(4);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                        case 3:
+                            g.setOrientation(Orientation.UP);
+                    }
+                }
+                if(g.getPosition().getX()==39){
+                    
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+                break;
+            case 8:
+                if(g.getPosition().getX()==10){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==19){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==21){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==30){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+                break;
+            case 11:
+                if(g.getPosition().getX()==10){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(4);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                        case 3:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==17){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==23){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==30){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(4);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                        case 3:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+                break;
+            case 12:
+                if(g.getPosition().getX()==17){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+            if(g.getPosition().getX()==23){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+            case 13:
+                if(g.getPosition().getX()==10){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(4);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 3:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+            if(g.getPosition().getX()==17){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+            if(g.getPosition().getX()==23){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+            if(g.getPosition().getX()==30){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(4);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 3:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+            case 15:
+                if(g.getPosition().getX()==10){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==19){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==21){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==30){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.DOWN);
+                            break;
+                    }
+                }
+            case 16:
+                if(g.getPosition().getX()==7){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+                if(g.getPosition().getX()==33){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+            case 18:
+                if(g.getPosition().getX()==19){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+            if(g.getPosition().getX()==21){
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(3);
+                    switch(nombre)
+                    {
+                        case 0:
+                            g.setOrientation(Orientation.LEFT);
+                            break;
+                        case 1:
+                            g.setOrientation(Orientation.RIGHT);
+                            break;
+                        case 2:
+                            g.setOrientation(Orientation.UP);
+                            break;
+                    }
+                }
+        }
     }
-    
     /**
      * gère les collisions lors des raffraîchissements entre pacman et un fantôme
      * @param pacman
@@ -394,9 +944,9 @@ public class Display extends JFrame implements KeyListener{
      */
     public void refreshPacman(Pacman p){
         Cellule c = p.getPosition();
-        Sound deplacement = new Sound("sounds/sirene.wav");
-        Sound mange = new Sound("sounds/mange.wav");
-        Sound mort = new Sound("sounds/mort.wav");
+        //Sound deplacement = new Sound("sounds/sirene.wav");
+        //Sound mange = new Sound("sounds/mange.wav");
+        //Sound mort = new Sound("sounds/mort.wav");
         //Si on passe sur une vitamine jamais mangé auparavant et que les fantômes sont dangereux
         if(this.ghost1.getCountWeak()==0 || this.ghost2.getCountWeak()==0 || this.ghost3.getCountWeak()==0 || this.ghost4.getCountWeak()==0){
             //Si Pacman n'est pas passé sur cette cellule
@@ -460,7 +1010,7 @@ public class Display extends JFrame implements KeyListener{
                 (this.collision(pacman, ghost3) && !this.ghost3.getWeak())||
                 (this.collision(pacman, ghost4) && !this.ghost4.getWeak())){
             //Pacman meurt
-            mort.play();
+            //mort.play();
             p.setDead(true);
             
         }
@@ -485,13 +1035,13 @@ public class Display extends JFrame implements KeyListener{
                     }
                     if(!this.getMap().getCellules()[c.getX()+1][c.getY()].getWall()){
                         p.setPosition(c.getX()+1, c.getY());
-                        deplacement.play();
+                        //deplacement.play();
                         //pacman est passé par cette case
                         if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                             //Ne compte pas les cases sans petits points
                             this.getPacman().setScore(this.getPacman().getScore() + 1);
                             this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                            mange.play();
+                            //mange.play();
                         }
 
                     }
@@ -504,11 +1054,11 @@ public class Display extends JFrame implements KeyListener{
                     }
                     if(!this.getMap().getCellules()[c.getX()-1][c.getY()].getWall()){
                         p.setPosition(c.getX()-1, c.getY());
-                        deplacement.play();
+                        //deplacement.play();
                         if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                             this.getPacman().setScore(this.getPacman().getScore() + 1);
                         this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                        mange.play();
+                        //mange.play();
                         }
                     }
                     break;
@@ -517,22 +1067,22 @@ public class Display extends JFrame implements KeyListener{
                 case DOWN:
                     if(!this.getMap().getCellules()[c.getX()][c.getY()+1].getWall()){
                         p.setPosition(c.getX(), c.getY()+1);
-                        deplacement.play();
+                        //deplacement.play();
                         if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                             this.getPacman().setScore(this.getPacman().getScore() + 1);
                         this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                        mange.play();
+                        //mange.play();
                         }
                     }
                     break;
                 case UP:
                     if(!this.getMap().getCellules()[c.getX()][c.getY()-1].getWall()){
                         p.setPosition(c.getX(), c.getY()-1);
-                        deplacement.play();
+                        //deplacement.play();
                         if(!this.getMap().getCellules()[c.getX()][c.getY()].getPassed()){
                             this.getPacman().setScore(this.getPacman().getScore() + 1);
                         this.getMap().getCellules()[c.getX()][c.getY()].setPassed(true);
-                        mange.play();
+                        //mange.play();
                         }
                     }
                     break;
