@@ -322,6 +322,32 @@ public class Display extends JFrame implements KeyListener{
     }
     
     /**
+     * gère les collisions lors des raffraîchissements entre pacman et un fantôme
+     * @param pacman
+     * @param ghost
+     * @return boolean
+     */
+    public boolean collision(Pacman pacman, Ghost ghost){
+        if(pacman.getPosition().getX() == ghost.getPosition().getX() && pacman.getPosition().getY() == ghost.getPosition().getY())
+            return true;
+        else if(pacman.getPosition().getX() == ghost.getPosition().getX()-1 && pacman.getPosition().getY() == ghost.getPosition().getY() &&
+                ghost.getOrientation() == Orientation.LEFT && pacman.getOrientation() == Orientation.RIGHT)
+            return true;
+        else if(pacman.getPosition().getX()-1 == ghost.getPosition().getX() && pacman.getPosition().getY() == ghost.getPosition().getY() &&
+                ghost.getOrientation() == Orientation.RIGHT && pacman.getOrientation() == Orientation.LEFT)
+            return true;
+        else if(pacman.getPosition().getX() == ghost.getPosition().getX() && pacman.getPosition().getY()-1 == ghost.getPosition().getY() &&
+                ghost.getOrientation() == Orientation.DOWN && pacman.getOrientation() == Orientation.UP)
+            return true;
+        else if(pacman.getPosition().getX()-1 == ghost.getPosition().getY()-1 && pacman.getPosition().getY() == ghost.getPosition().getY() &&
+                ghost.getOrientation() == Orientation.UP && pacman.getOrientation() == Orientation.DOWN)
+            return true;
+        else
+            return false;
+    }
+    
+    
+    /**
      * gère les déplacements du pacman sur le plateau
      * @param p 
      */
@@ -388,10 +414,10 @@ public class Display extends JFrame implements KeyListener{
         }
         
         //Mort de Pacman
-        if(     ((c.getX()==this.ghost1.getPosition().getX() && c.getY()==this.ghost1.getPosition().getY()) && !this.ghost1.getWeak())||
-                ((c.getX()==this.ghost2.getPosition().getX() && c.getY()==this.ghost2.getPosition().getY()) && !this.ghost2.getWeak())||
-                ((c.getX()==this.ghost3.getPosition().getX() && c.getY()==this.ghost3.getPosition().getY()) && !this.ghost3.getWeak())||
-                ((c.getX()==this.ghost4.getPosition().getX() && c.getY()==this.ghost4.getPosition().getY()) && !this.ghost4.getWeak())){
+        if(     (this.collision(pacman, ghost1) && !this.ghost1.getWeak())||
+                (this.collision(pacman, ghost2) && !this.ghost2.getWeak())||
+                (this.collision(pacman, ghost3) && !this.ghost3.getWeak())||
+                (this.collision(pacman, ghost4) && !this.ghost4.getWeak())){
             //Pacman meurt
             mort.play();
             p.setDead(true);
