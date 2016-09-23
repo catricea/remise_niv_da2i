@@ -17,7 +17,7 @@ package Game;
  * le score total en fin de partie,
  * et un booléen qui détermine la fin du jeu.
  */
-class Pacman {
+public class Pacman {
     
     private Cellule position;
     private boolean dead;
