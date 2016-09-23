@@ -48,7 +48,7 @@ public class Display extends JFrame implements KeyListener{
         this.addKeyListener(this);
         //Frame
         this.setTitle("PacMan");
-        this.setSize(1231,690);
+        this.setSize(1231,664);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
