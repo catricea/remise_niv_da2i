@@ -48,6 +48,7 @@ public class Display extends JFrame implements KeyListener{
     private Image IGhost4 = null;
     private Image IGhost5 = null;
     
+    private Image IWall = null;
 
     /**
      * construit un affichage avec un plateau, un pacman et des fantômes
@@ -74,6 +75,8 @@ public class Display extends JFrame implements KeyListener{
             IGhost3 = ImageIO.read(getClass().getResource("ghost3.png"));
             IGhost4 = ImageIO.read(getClass().getResource("ghost4.png"));
             IGhost5 = ImageIO.read(getClass().getResource("ghost5.png"));
+            
+            IWall = ImageIO.read(getClass().getResource("wall.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -106,6 +109,7 @@ public class Display extends JFrame implements KeyListener{
                 if(c[j][i].getWall()){
                     g.setColor( new Color(11, 4, 200));
                     g.fillRect(j*30, i*30+30, 30, 30);
+                    g.drawImage(IWall,j*30,i*30+30,this);
                 }                 
                 //affiche le pacman
                 else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i){
