@@ -501,7 +501,7 @@ public class Display extends JFrame implements KeyListener{
                     this.getPacman().setOrientation(Orientation.RIGHT);
                 break;
                 case "Haut":
-                   this.getPacman().setOrientation(Orientation.UP);
+                    this.getPacman().setOrientation(Orientation.UP);
                 break;
                 case "Bas":
                    this.getPacman().setOrientation(Orientation.DOWN);
