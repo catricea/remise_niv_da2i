@@ -13,7 +13,7 @@ package Game;
  * n booléen permettant de savoir si pacman est déjà passé dessus
  * @author catricea
  */
-class Cellule {
+public class Cellule {
     
     private int x,y;
     private boolean wall;

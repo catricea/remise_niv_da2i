@@ -12,8 +12,13 @@ package Game;
 import java.applet.Applet;
 import java.applet.AudioClip;
 
+// classe permettant de diffuser du son
+
+
 public class Sound {
    private AudioClip clip;
+   
+   // on lui passe l'emplacement du fichier à lire en argument
    public Sound(String name){
       try
       {
@@ -22,6 +27,8 @@ public class Sound {
          e.printStackTrace();
       }
    }
+   
+   // méthode permettant de lire un son
    public void play(){
       try{
          new Thread(){
