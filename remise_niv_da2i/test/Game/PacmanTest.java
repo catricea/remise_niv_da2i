@@ -18,6 +18,9 @@ import static org.junit.Assert.*;
  */
 public class PacmanTest {
     
+    private Pacman P; 
+    private Cellule C;
+    
     public PacmanTest() {
     }
     
@@ -31,6 +34,8 @@ public class PacmanTest {
     
     @Before
     public void setUp() {
+        Cellule C1 = new Cellule(0,0, false, false);
+        Pacman P = new Pacman(C1);
     }
     
     @After
@@ -42,13 +47,13 @@ public class PacmanTest {
      */
     @Test
     public void testGetDead() {
+        P.setDead(true);
         System.out.println("getDead");
-        Pacman instance = null;
         boolean expResult = false;
-        boolean result = instance.getDead();
+        boolean result = P.getDead();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Le resultat attendu était : false.");
     }
 
     /**
@@ -57,11 +62,12 @@ public class PacmanTest {
     @Test
     public void testSetDead() {
         System.out.println("setDead");
+        
         boolean a = false;
-        Pacman instance = null;
-        instance.setDead(a);
+        P.setDead(a);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(a, P.getDead());
+        fail("Erreur.");
     }
 
     /**
@@ -70,12 +76,12 @@ public class PacmanTest {
     @Test
     public void testGetPosition() {
         System.out.println("getPosition");
-        Pacman instance = null;
-        Cellule expResult = null;
-        Cellule result = instance.getPosition();
+        
+        Cellule expResult = C;
+        Cellule result = P.getPosition();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Position différente.");
     }
 
     /**
@@ -84,12 +90,11 @@ public class PacmanTest {
     @Test
     public void testGetScore() {
         System.out.println("getScore");
-        Pacman instance = null;
         int expResult = 0;
-        int result = instance.getScore();
+        int result = P.getScore();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Score différent");
     }
 
     /**
@@ -98,12 +103,12 @@ public class PacmanTest {
     @Test
     public void testGetGhostScore() {
         System.out.println("getGhostScore");
-        Pacman instance = null;
+        
         int expResult = 0;
-        int result = instance.getGhostScore();
+        int result = P.getGhostScore();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Score de fantome différent");
     }
 
     /**
@@ -112,12 +117,12 @@ public class PacmanTest {
     @Test
     public void testGetScoreFinal() {
         System.out.println("getScoreFinal");
-        Pacman instance = null;
-        int expResult = 0;
-        int result = instance.getScoreFinal();
+        
+        int expResult = P.getGhostScore() + P.getScore();
+        int result = P.getScoreFinal();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Score final different du résultat attendu");
     }
 
     /**
@@ -126,12 +131,12 @@ public class PacmanTest {
     @Test
     public void testGetOrientation() {
         System.out.println("getOrientation");
-        Pacman instance = null;
-        Orientation expResult = null;
-        Orientation result = instance.getOrientation();
+        
+        Orientation expResult = Orientation.UP;
+        Orientation result = P.getOrientation();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Orientation différente");
     }
 
     /**
@@ -140,12 +145,16 @@ public class PacmanTest {
     @Test
     public void testSetPosition() {
         System.out.println("setPosition");
-        int x = 0;
-        int y = 0;
-        Pacman instance = null;
-        instance.setPosition(x, y);
+        int x = 5;
+        int y = 10;
+        
+        P.setPosition(x, y);
+        
+        assertEquals(x, C.getX());
+        assertEquals(y, C.getY());
+        
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Coordonnées différentes.");
     }
 
     /**
@@ -154,11 +163,12 @@ public class PacmanTest {
     @Test
     public void testSetOrientation() {
         System.out.println("setOrientation");
-        Orientation orientation = null;
-        Pacman instance = null;
-        instance.setOrientation(orientation);
+        Orientation orientation = Orientation.DOWN;
+       
+        P.setOrientation(orientation);
+        assertEquals(Orientation.DOWN, P.getOrientation());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Orientation différente.");
     }
 
     /**
@@ -167,11 +177,12 @@ public class PacmanTest {
     @Test
     public void testSetScore() {
         System.out.println("setScore");
-        int score = 0;
-        Pacman instance = null;
-        instance.setScore(score);
+        int score = 45;
+        
+        P.setScore(score);
+        assertEquals(score, P.getScore());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("Score différent.");
     }
 
     /**
@@ -180,11 +191,12 @@ public class PacmanTest {
     @Test
     public void testSetGhostScore() {
         System.out.println("setGhostScore");
-        int score = 0;
-        Pacman instance = null;
-        instance.setGhostScore(score);
+        int score = 89;
+        
+        P.setGhostScore(score);
+        assertEquals(score, P.getGhostScore());
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        fail("score différent.");
     }
     
 }
