@@ -57,7 +57,9 @@ public class Display extends JFrame implements KeyListener{
      * @param graphics
      */
     public void paint(Graphics g){
-        Color defaultColor = this.getBackground();
+        
+        this.setTitle("Pacman "+ "Score : " + this.pacman.getScoreFinal());
+        this.getContentPane().setBackground(Color.black);
         //réccupère un tableau de cellule
         Cellule[][] c = this.getMap().getCellules();
         //parcourt le tableau de cellules
@@ -65,7 +67,7 @@ public class Display extends JFrame implements KeyListener{
             for(int j = 0; j < this.getMap().getWidth(); j++){
                 //affiche les murs
                 if(c[j][i].getWall()){
-                    g.setColor( new Color(129, 159, 210));
+                    g.setColor( new Color(11, 4, 200));
                     g.fillRect(j*30, i*30+30, 30, 30);
                 }                 
                 //affiche le pacman
@@ -115,12 +117,12 @@ public class Display extends JFrame implements KeyListener{
                 }
                 //affiche le chemin où pacman est passé
                 else if(c[j][i].getPassed()){
-                    g.setColor(defaultColor);
+                    g.setColor(Color.black);
                     g.fillRect(j*30, i*30+30, 30, 30);
                 }
                 //affiche les vitamines
                 else if(c[j][i].getVitamined()){
-                    g.setColor(defaultColor);
+                    g.setColor(Color.black);
                     g.fillRect(j*30, i*30+30, 30, 30);
                     g.setColor(new Color(6, 38, 225));
                     g.fillOval(j*30+10, i*30+40, 12, 12);
@@ -128,15 +130,15 @@ public class Display extends JFrame implements KeyListener{
                 //retire des points aux endroits voulus, comme au milieu
                 else if(21 == j & 10 == i || 19 == j && 10 == i || 20 == j && 10 == i || 21 == j & 9 == i || 19 == j && 9 == i || 20 == j && 9 == i
                         || 20==j & 8==i || 18==j & 12==i || 19==j & 12==i || 20==j & 12==i || 21==j & 12==i || 22==j & 12==i){
-                    g.setColor(defaultColor);
+                    g.setColor(Color.black);
                     g.fillRect(j*30, i*30+30, 30, 30);
                 }
                 //affiche le chemin
                 else{
-                    g.setColor(defaultColor);
+                    g.setColor(Color.black);
                     g.fillRect(j*30, i*30+30, 30, 30);
                     g.setColor(new Color(235, 88, 59));
-                    g.fillOval(j*30+10, i*30+40, 10, 10);
+                    g.fillOval(j*30+10, i*30+40, 5, 5);
                 }
             }          
         }
@@ -149,6 +151,9 @@ public class Display extends JFrame implements KeyListener{
         
         Cellule[][] c = this.getMap().getCellules();
         System.out.println("en bas a gauche vitamine ? : " + this.map.getCellules()[1][18].getVitamined());
+        System.out.println("en bas a droite vitamine ? : " + this.map.getCellules()[39][18].getVitamined());
+        System.out.println("en haut a gauche vitamine ? : " + this.map.getCellules()[1][3].getVitamined());
+        System.out.println("en haut a droite vitamine ? : " + this.map.getCellules()[39][3].getVitamined());
         //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
@@ -224,7 +229,7 @@ public class Display extends JFrame implements KeyListener{
             g.setPosition(20,11);
         }
         //5sec => cpt=30
-        if(g.getCountWeak()==30){
+        if(g.getCountWeak()==60){
             g.setWeak(false);
             g.setCountWeak(0);
         }
@@ -327,10 +332,11 @@ public class Display extends JFrame implements KeyListener{
         Sound mort = new Sound("sounds/mort.wav");
         //Si on passe sur une vitamine jamais mangé auparavant et que les fantômes sont dangereux
         if(this.ghost1.getCountWeak()==0 || this.ghost2.getCountWeak()==0 || this.ghost3.getCountWeak()==0 || this.ghost4.getCountWeak()==0){
-            if((!c.getPassed()) && (c.getX()== 1 && c.getY()==3)){
+            //Si Pacman n'est pas passé sur cette cellule
+            if((this.map.getCellules()[1][3].getPassed()) && this.map.getCellules()[1][3].getVitamined() && (c.getX()== 1 && c.getY()==3)){
                 //La position de la vitamine ne pourra plus donner des forces à Pacman
                 this.map.getCellules()[1][3].setVitamined(false);
-                c.setPassed(true);
+                this.map.getCellules()[1][3].setPassed(true);
                 this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);  
                 this.ghost2.setCountWeak(this.ghost2.getCountWeak()+1);
                 this.ghost3.setCountWeak(this.ghost3.getCountWeak()+1);
@@ -340,10 +346,10 @@ public class Display extends JFrame implements KeyListener{
                 this.ghost3.setWeak(true);
                 this.ghost4.setWeak(true);
             }
-            if((!c.getPassed()) && (c.getX()== 1 && c.getY()==18)){
+            if((this.map.getCellules()[1][18].getPassed()) && this.map.getCellules()[1][18].getVitamined() && (c.getX()== 1 && c.getY()==18)){
                 //La position de la vitamine ne pourra plus donner des forces à Pacman
                 this.map.getCellules()[1][18].setVitamined(false);
-                c.setPassed(true);
+                this.map.getCellules()[1][18].setPassed(true);
                 this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);  
                 this.ghost2.setCountWeak(this.ghost2.getCountWeak()+1);
                 this.ghost3.setCountWeak(this.ghost3.getCountWeak()+1);
@@ -353,9 +359,9 @@ public class Display extends JFrame implements KeyListener{
                 this.ghost3.setWeak(true);
                 this.ghost4.setWeak(true);
             }
-            if((!c.getPassed()) && (c.getX()== 39 && c.getY()==3)){
+            if((this.map.getCellules()[39][3].getPassed()) && this.map.getCellules()[39][3].getVitamined() && (c.getX()== 39 && c.getY()==3)){
                 //La position de la vitamine ne pourra plus donner des forces à Pacman
-                c.setPassed(true);
+                this.map.getCellules()[39][3].setPassed(true);
                 this.map.getCellules()[39][3].setVitamined(false);
                 this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);  
                 this.ghost2.setCountWeak(this.ghost2.getCountWeak()+1);
@@ -366,9 +372,9 @@ public class Display extends JFrame implements KeyListener{
                 this.ghost3.setWeak(true);
                 this.ghost4.setWeak(true);
             }
-            if((!c.getPassed()) && (c.getX()== 39 && c.getY()==18)){
+            if((this.map.getCellules()[39][18].getPassed()) && this.map.getCellules()[39][18].getVitamined() && (c.getX()== 39 && c.getY()==18)){
                 //La position de la vitamine ne pourra plus donner des forces à Pacman
-                c.setPassed(true);
+                this.map.getCellules()[39][18].setPassed(true);
                 this.map.getCellules()[39][18].setVitamined(false);
                 this.ghost1.setCountWeak(this.ghost1.getCountWeak()+1);  
                 this.ghost2.setCountWeak(this.ghost2.getCountWeak()+1);
