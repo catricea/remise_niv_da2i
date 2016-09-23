@@ -52,8 +52,7 @@ public class PacmanTest {
         System.out.println("getDead");
         boolean expResult = a;
         boolean result = P.getDead();
-        assertEquals("Le resultat attendu était : false.", expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+        assertEquals("Le resultat attendu était : true.", expResult, result);
         
     }
 
