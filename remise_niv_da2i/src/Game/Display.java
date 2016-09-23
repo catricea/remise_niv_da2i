@@ -8,9 +8,14 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 /**
  * @authors Mathieu Huard, Xavier Lamarque, Algerkov Ruskov, Aurélia Catrice
@@ -31,6 +36,18 @@ public class Display extends JFrame implements KeyListener{
     private Ghost ghost2;
     private Ghost ghost3;
     private Ghost ghost4;
+    
+    private Image IPacmanUp = null;
+    private Image IPacmanDown = null;
+    private Image IPacmanRight = null;
+    private Image IPacmanLeft = null;
+    
+    private Image IGhost1 = null;
+    private Image IGhost2 = null;
+    private Image IGhost3 = null;
+    private Image IGhost4 = null;
+    private Image IGhost5 = null;
+    
 
     /**
      * construit un affichage avec un plateau, un pacman et des fantômes
@@ -44,6 +61,23 @@ public class Display extends JFrame implements KeyListener{
         this.ghost2 = new Ghost(new Cellule(19,11,false,false));
         this.ghost3 = new Ghost(new Cellule(19,10,false,false));
         this.ghost4 = new Ghost(new Cellule(21,10,false,false));
+            
+        
+        try {
+            IPacmanUp = ImageIO.read(getClass().getResource("pacmanUp.png"));
+            IPacmanDown = ImageIO.read(getClass().getResource("pacmanDown.png"));
+            IPacmanLeft = ImageIO.read(getClass().getResource("pacmanLeft.png"));
+            IPacmanRight = ImageIO.read(getClass().getResource("pacmanRight.png"));
+            
+            IGhost1 = ImageIO.read(getClass().getResource("ghost1.png"));
+            IGhost2 = ImageIO.read(getClass().getResource("ghost2.png"));
+            IGhost3 = ImageIO.read(getClass().getResource("ghost3.png"));
+            IGhost4 = ImageIO.read(getClass().getResource("ghost4.png"));
+            IGhost5 = ImageIO.read(getClass().getResource("ghost5.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
         this.getMap().initialization();
         this.addKeyListener(this);
         //Frame
@@ -58,10 +92,13 @@ public class Display extends JFrame implements KeyListener{
      */
     public void paint(Graphics g){
         
+       // Graphics2D g2 = (Graphics2D) g;
+        
         this.setTitle("Pacman "+ "Score : " + this.pacman.getScoreFinal());
         this.getContentPane().setBackground(Color.black);
         //réccupère un tableau de cellule
         Cellule[][] c = this.getMap().getCellules();
+        
         //parcourt le tableau de cellules
         for(int i = 0; i < this.getMap().getHeight(); i++){
             for(int j = 0; j < this.getMap().getWidth(); j++){
@@ -72,48 +109,66 @@ public class Display extends JFrame implements KeyListener{
                 }                 
                 //affiche le pacman
                 else if(getPacman().getPosition().getX() == j && getPacman().getPosition().getY() == i){
-                    g.setColor(new Color(255, 224, 119));
-                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                    g.setColor(Color.BLACK);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                    if(getPacman().getOrientation() == Orientation.UP)
+                        g.drawImage(IPacmanUp,j*30+5,i*30+35,this);
+                    else if(getPacman().getOrientation() == Orientation.DOWN)
+                        g.drawImage(IPacmanDown,j*30+5,i*30+35,this);
+                    else if(getPacman().getOrientation() == Orientation.RIGHT)
+                        g.drawImage(IPacmanRight,j*30+5,i*30+35,this); 
+                    else if(getPacman().getOrientation() == Orientation.LEFT)
+                        g.drawImage(IPacmanLeft,j*30+5,i*30+35,this);
+                      
                 }
                 //affiche le ghost rouge
                 else if(this.getGhost().getPosition().getX() == j && getGhost().getPosition().getY() == i && !this.getGhost().getWeak()){
-                    g.setColor(new Color(240, 6, 6));
-                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                    g.setColor(Color.BLACK);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                    g.drawImage(IGhost1,j*30+5,i*30+35,this);
                 }
                 //affiche le ghost bleu
                 else if(this.getGhost2().getPosition().getX() == j && getGhost2().getPosition().getY() == i && !this.getGhost2().getWeak()){
-                    g.setColor(new Color(35, 245, 249));
-                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                    g.setColor(Color.BLACK);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                    g.drawImage(IGhost2,j*30+5,i*30+35,this);
                 }
                 //affiche le ghost orange
                 else if(this.getGhost3().getPosition().getX() == j && getGhost3().getPosition().getY() == i && !this.getGhost3().getWeak()){
-                    g.setColor(new Color(247, 150, 40));
-                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                    g.setColor(Color.BLACK);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                    g.drawImage(IGhost3,j*30+5,i*30+35,this);
                 }
                 //affiche le ghost rose
                 else if(this.getGhost4().getPosition().getX() == j && getGhost4().getPosition().getY() == i && !this.getGhost4().getWeak()){
-                    g.setColor(new Color(245, 164, 242));
-                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                    g.setColor(Color.BLACK);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                    g.drawImage(IGhost4,j*30+5,i*30+35,this);
                 }
                 //affiche le ghost rouge en bleu
                 else if(this.getGhost().getPosition().getX() == j && getGhost().getPosition().getY() == i && this.getGhost().getWeak()){
-                    g.setColor(new Color(6, 38, 225));
-                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                    g.setColor(Color.BLACK);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                    g.drawImage(IGhost5,j*30+5,i*30+35,this);
                 }
                 //affiche le ghost bleu en bleu
                 else if(this.getGhost2().getPosition().getX() == j && getGhost2().getPosition().getY() == i && this.getGhost2().getWeak()){
-                    g.setColor(new Color(6, 38, 225));
-                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                    g.setColor(Color.BLACK);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                    if(IGhost5 != null)
+                        g.drawImage(IGhost5,j*30+5,i*30+35,this);
                 }
                 //affiche le ghost orange en bleu
                 else if(this.getGhost3().getPosition().getX() == j && getGhost3().getPosition().getY() == i && this.getGhost3().getWeak()){
-                    g.setColor(new Color(6, 38, 225));
-                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                    g.setColor(Color.BLACK);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                    g.drawImage(IGhost5,j*30+5,i*30+35,this);
                 }
                 //affiche le ghost rose en bleu
                 else if(this.getGhost4().getPosition().getX() == j && getGhost4().getPosition().getY() == i && this.getGhost4().getWeak()){
-                    g.setColor(new Color(6, 38, 225));
-                    g.fillOval(j*30+5, i*30+35, 20, 20);
+                    g.setColor(Color.BLACK);
+                    g.fillRect(j*30, i*30+30, 30, 30);
+                    g.drawImage(IGhost5,j*30+5,i*30+35,this);
                 }
                 //affiche le chemin où pacman est passé
                 else if(c[j][i].getPassed()){
@@ -186,21 +241,7 @@ public class Display extends JFrame implements KeyListener{
      * @param g 
      */
     public void refreshGhost(Ghost g){
-        
-        //Idée de path finding :
-        //Cellule cp = this.getPacman().getPosition();
-        //Cellule cg = g.getPosition();
-        //int x = cg.getX() - cp.getX();
-        //int y = cg.getY() - cp.getY();
-        //if(x > 0 && x > y)
-        //RIGHT
-        //if(x < 0 && x > y)
-        //LEFT
-        //if(y > 0 && y > x)
-        //UP
-        //if(y < 0 && y > x)
-        //DOWN
-        
+
         //Ghost Mouvements
         Cellule c = g.getPosition();
         //Permet aux fantômes de sortir de leur maison et de ne pas y rerentrer
