@@ -65,18 +65,18 @@ public class Display extends JFrame implements KeyListener{
             
         
         try {
-            IPacmanUp = ImageIO.read(getClass().getResource("pacmanUp.png"));
-            IPacmanDown = ImageIO.read(getClass().getResource("pacmanDown.png"));
-            IPacmanLeft = ImageIO.read(getClass().getResource("pacmanLeft.png"));
-            IPacmanRight = ImageIO.read(getClass().getResource("pacmanRight.png"));
+            IPacmanUp = ImageIO.read(getClass().getResource("pictures/pacmanUp.png"));
+            IPacmanDown = ImageIO.read(getClass().getResource("pictures/pacmanDown.png"));
+            IPacmanLeft = ImageIO.read(getClass().getResource("pictures/pacmanLeft.png"));
+            IPacmanRight = ImageIO.read(getClass().getResource("pictures/pacmanRight.png"));
             
-            IGhost1 = ImageIO.read(getClass().getResource("ghost1.png"));
-            IGhost2 = ImageIO.read(getClass().getResource("ghost2.png"));
-            IGhost3 = ImageIO.read(getClass().getResource("ghost3.png"));
-            IGhost4 = ImageIO.read(getClass().getResource("ghost4.png"));
-            IGhost5 = ImageIO.read(getClass().getResource("ghost5.png"));
+            IGhost1 = ImageIO.read(getClass().getResource("pictures/ghost1.png"));
+            IGhost2 = ImageIO.read(getClass().getResource("pictures/ghost2.png"));
+            IGhost3 = ImageIO.read(getClass().getResource("pictures/ghost3.png"));
+            IGhost4 = ImageIO.read(getClass().getResource("pictures/ghost4.png"));
+            IGhost5 = ImageIO.read(getClass().getResource("pictures/ghost5.png"));
             
-            IWall = ImageIO.read(getClass().getResource("wall.png"));
+            IWall = ImageIO.read(getClass().getResource("pictures/wall.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
