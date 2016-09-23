@@ -34,8 +34,8 @@ public class PacmanTest {
     
     @Before
     public void setUp() {
-        Cellule C1 = new Cellule(0,0, false, false);
-        Pacman P = new Pacman(C1);
+        C = new Cellule(0,0, false, false);
+        P = new Pacman(C);
     }
     
     @After
@@ -47,13 +47,14 @@ public class PacmanTest {
      */
     @Test
     public void testGetDead() {
-        P.setDead(true);
+        boolean a = true;
+        P.setDead(a);
         System.out.println("getDead");
-        boolean expResult = false;
+        boolean expResult = a;
         boolean result = P.getDead();
-        assertEquals(expResult, result);
+        assertEquals("Le resultat attendu était : false.", expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("Le resultat attendu était : false.");
+        
     }
 
     /**
@@ -66,8 +67,8 @@ public class PacmanTest {
         boolean a = false;
         P.setDead(a);
         // TODO review the generated test code and remove the default call to fail.
-        assertEquals(a, P.getDead());
-        fail("Erreur.");
+        assertEquals("Erreur.", a, P.getDead());
+        
     }
 
     /**
@@ -79,9 +80,8 @@ public class PacmanTest {
         
         Cellule expResult = C;
         Cellule result = P.getPosition();
-        assertEquals(expResult, result);
+        assertEquals("Position différente.", expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("Position différente.");
     }
 
     /**
@@ -92,9 +92,8 @@ public class PacmanTest {
         System.out.println("getScore");
         int expResult = 0;
         int result = P.getScore();
-        assertEquals(expResult, result);
+        assertEquals("Score différent",expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("Score différent");
     }
 
     /**
@@ -106,9 +105,8 @@ public class PacmanTest {
         
         int expResult = 0;
         int result = P.getGhostScore();
-        assertEquals(expResult, result);
+        assertEquals("Score de fantome différent", expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("Score de fantome différent");
     }
 
     /**
@@ -120,9 +118,8 @@ public class PacmanTest {
         
         int expResult = P.getGhostScore() + P.getScore();
         int result = P.getScoreFinal();
-        assertEquals(expResult, result);
+        assertEquals("Score final different du résultat attendu", expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("Score final different du résultat attendu");
     }
 
     /**
@@ -134,9 +131,8 @@ public class PacmanTest {
         
         Orientation expResult = Orientation.UP;
         Orientation result = P.getOrientation();
-        assertEquals(expResult, result);
+        assertEquals("Orientation différente", expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("Orientation différente");
     }
 
     /**
@@ -150,11 +146,10 @@ public class PacmanTest {
         
         P.setPosition(x, y);
         
-        assertEquals(x, C.getX());
-        assertEquals(y, C.getY());
+        assertEquals("Coordonnées x différentes.", x, C.getX());
+        assertEquals("Coordonnées y différentes.", y, C.getY());
         
         // TODO review the generated test code and remove the default call to fail.
-        fail("Coordonnées différentes.");
     }
 
     /**
@@ -166,9 +161,8 @@ public class PacmanTest {
         Orientation orientation = Orientation.DOWN;
        
         P.setOrientation(orientation);
-        assertEquals(Orientation.DOWN, P.getOrientation());
+        assertEquals("Orientation différente.", Orientation.DOWN, P.getOrientation());
         // TODO review the generated test code and remove the default call to fail.
-        fail("Orientation différente.");
     }
 
     /**
@@ -180,9 +174,8 @@ public class PacmanTest {
         int score = 45;
         
         P.setScore(score);
-        assertEquals(score, P.getScore());
+        assertEquals("Score différent.", score, P.getScore());
         // TODO review the generated test code and remove the default call to fail.
-        fail("Score différent.");
     }
 
     /**
@@ -194,9 +187,8 @@ public class PacmanTest {
         int score = 89;
         
         P.setGhostScore(score);
-        assertEquals(score, P.getGhostScore());
+        assertEquals("score différent.", score, P.getGhostScore());
         // TODO review the generated test code and remove the default call to fail.
-        fail("score différent.");
     }
     
 }
